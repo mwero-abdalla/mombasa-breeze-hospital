@@ -1,65 +1,200 @@
-import Image from "next/image";
+import type { LucideIcon } from "lucide-react";
+import {
+  Accessibility,
+  Ambulance,
+  BadgeCheck,
+  BadgeDollarSign,
+  Clock,
+  HeartHandshake,
+  HeartPulse,
+  MapPin,
+  Microscope,
+  Pill,
+  Scan,
+  Stethoscope,
+  Syringe,
+  UserCheck,
+} from "lucide-react";
+import Link from "next/link";
+import {
+  CounterSection,
+  TestimonialsCarousel,
+} from "@/components/sections/home-client";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { insurancePartners, services, whyChooseUs } from "@/lib/data";
+
+const whyChooseUsIconMap: Record<string, LucideIcon> = {
+  UserCheck,
+  Microscope,
+  Clock,
+  BadgeDollarSign,
+  HeartHandshake,
+  Accessibility,
+  BadgeCheck,
+  MapPin,
+};
+
+const serviceIconMap: Record<string, LucideIcon> = {
+  Stethoscope,
+  Ambulance,
+  HeartPulse,
+  Microscope,
+  Pill,
+  Scan,
+  Scalpel: Syringe,
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 text-white">
+        <div className="absolute inset-0 bg-black/10" />
+        <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36">
+          <div className="max-w-2xl">
+            <Badge variant="secondary" className="mb-4">
+              24/7 Healthcare Services
+            </Badge>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              Your Trusted Healthcare Partner in Mombasa
+            </h1>
+            <p className="text-lg md:text-xl text-blue-100 mb-8">
+              Providing quality, compassionate, and affordable healthcare 24
+              hours a day.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/appointments">
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-700 hover:bg-blue-50 cursor-pointer"
+                >
+                  Book Appointment
+                </Button>
+              </Link>
+              <Link href="/emergency">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white/10 cursor-pointer"
+                >
+                  Emergency Contact
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white/10 cursor-pointer"
+                >
+                  Find Us
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <CounterSection />
+
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Why Choose Us</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              We are committed to providing exceptional healthcare services to
+              our community.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyChooseUs.map((item) => {
+              const Icon = whyChooseUsIconMap[item.icon];
+              return (
+                <Card key={item.title} className="p-6">
+                  {Icon && <Icon className="h-10 w-10 text-primary mb-4" />}
+                  <CardTitle className="mb-2">{item.title}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-muted/50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Our Services</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive healthcare services tailored to meet your needs.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service) => {
+              const Icon = serviceIconMap[service.icon] || Stethoscope;
+              return (
+                <Card key={service.title} className="p-6 flex flex-col">
+                  {Icon && <Icon className="h-10 w-10 text-primary mb-4" />}
+                  <CardTitle className="mb-2">{service.title}</CardTitle>
+                  <CardDescription className="flex-1 mb-4">
+                    {service.description}
+                  </CardDescription>
+                  <Link
+                    href="/services"
+                    className="text-primary font-medium text-sm hover:underline mt-auto inline-flex items-center gap-1"
+                  >
+                    Learn More <span aria-hidden="true">→</span>
+                  </Link>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <TestimonialsCarousel />
+
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Insurance Partners</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              We work with a wide range of insurance providers to make
+              healthcare accessible.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {insurancePartners.map((partner) => (
+              <div
+                key={partner}
+                className="p-4 rounded-lg bg-muted/50 text-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {partner}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-gradient-to-br from-blue-600 to-teal-700 text-white">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Book an Appointment?
+          </h2>
+          <p className="text-blue-100 mb-8 max-w-xl mx-auto">
+            Schedule your visit today and experience quality healthcare with
+            compassion.
           </p>
+          <Link href="/appointments">
+            <Button
+              size="lg"
+              className="bg-white text-blue-700 hover:bg-blue-50 cursor-pointer"
+            >
+              Book Appointment
+            </Button>
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }

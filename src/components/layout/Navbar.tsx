@@ -122,15 +122,11 @@ export default function Navbar() {
 
             {/* Mobile Menu (Sheet) */}
             <Sheet>
-              <SheetTrigger>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="lg:hidden"
-                  aria-label="Open menu"
-                >
-                  <Menu className="size-5" />
-                </Button>
+              <SheetTrigger
+                className="lg:hidden inline-flex items-center justify-center rounded-lg size-8 hover:bg-muted transition-colors"
+                aria-label="Open menu"
+              >
+                <Menu className="size-5" />
               </SheetTrigger>
               <SheetContent side="right" className="w-72">
                 <div className="flex flex-col gap-6 p-4">

@@ -27,6 +27,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-ocean: #0b6bcb;
+  --color-ocean-light: #e8f1fb;
+  --color-teal: #0d9488;
+  --color-teal-light: #e6f7f5;
+  --color-rose: #e11d48;
+  --color-rose-light: #fde8ed;
+  --color-gold: #f59e0b;
+  --color-slate-warm: #f8fafc;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -37,7 +45,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #ffffff;
+  --background: #f8fafc;
   --foreground: #1e293b;
   --card: #ffffff;
   --card-foreground: #1e293b;
@@ -49,9 +57,9 @@
   --secondary-foreground: #ffffff;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --accent: #e0f2fe;
+  --accent: #e8f1fb;
   --accent-foreground: #0c4a6e;
-  --destructive: #dc2626;
+  --destructive: #e11d48;
   --destructive-foreground: #ffffff;
   --border: #e2e8f0;
   --input: #e2e8f0;
@@ -70,24 +78,19 @@
   --card-foreground: #e2e8f0;
   --popover: #1e293b;
   --popover-foreground: #e2e8f0;
-  --primary: #38bdf8;
+  --primary: #60a5fa;
   --primary-foreground: #0f172a;
   --secondary: #2dd4bf;
   --secondary-foreground: #0f172a;
   --muted: #1e293b;
   --muted-foreground: #94a3b8;
   --accent: #1e3a5f;
-  --accent-foreground: #e0f2fe;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --accent-foreground: #dbeafe;
+  --destructive: #fb7185;
+  --destructive-foreground: #0f172a;
   --border: #334155;
   --input: #334155;
-  --ring: #38bdf8;
-  --chart-1: #38bdf8;
-  --chart-2: #2dd4bf;
-  --chart-3: #60a5fa;
-  --chart-4: #fbbf24;
-  --chart-5: #a3e635;
+  --ring: #60a5fa;
 }
 
 @layer base {
@@ -97,4 +100,67 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .wave-divider {
+    position: relative;
+  }
+  .wave-divider::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' fill='%230B6BCB' opacity='0.06'%3E%3Cpath d='M0,24 C360,48 720,0 1080,24 C1260,36 1350,30 1440,24 L1440,48 L0,48 Z'/%3E%3C/svg%3E")
+      repeat-x bottom;
+    background-size: 720px 24px;
+    pointer-events: none;
+  }
+  .wave-divider-teal::after {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' fill='%230D9488' opacity='0.06'%3E%3Cpath d='M0,24 C360,48 720,0 1080,24 C1260,36 1350,30 1440,24 L1440,48 L0,48 Z'/%3E%3C/svg%3E")
+      repeat-x bottom;
+    background-size: 720px 24px;
+  }
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-lg;
+  }
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes pulse-urgent {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-urgent {
+  animation: pulse-urgent 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

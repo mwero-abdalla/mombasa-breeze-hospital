@@ -44,27 +44,32 @@ export default function Navbar() {
       <motion.div
         className={cn(
           "border-b transition-[border-color] duration-300",
-          scrolled ? "border-border" : "border-transparent",
+          scrolled ? "border-border/50" : "border-transparent",
         )}
         animate={{
           backgroundColor: scrolled
-            ? "var(--background)"
+            ? "rgba(255,255,255,0.98)"
             : "rgba(255,255,255,0)",
           boxShadow: scrolled
-            ? "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"
+            ? "0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.04)"
             : "0 0 0 0 transparent",
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
           {/* Logo / Brand */}
-          <Link href="/" className="flex shrink-0 items-center gap-2">
-            <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5">
+            <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-sm font-bold tracking-wide text-primary-foreground shadow-sm shadow-primary/20">
               MB
             </span>
-            <span className="text-lg font-bold tracking-tight text-foreground">
-              {siteConfig.name}
-            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-xs font-bold tracking-wider text-foreground">
+                MOMBASA BREEZE
+              </span>
+              <span className="text-[10px] font-medium tracking-widest text-muted-foreground/60">
+                HOSPITAL
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -79,7 +84,7 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-primary"
                 >
                   {link.label}
                 </Link>
@@ -90,13 +95,19 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-3">
             {/* Emergency Contact Pill */}
-            <a
+            <motion.a
               href={`tel:${siteConfig.phone.emergency.replace(/\s/g, "")}`}
               className="hidden items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary/10 lg:inline-flex"
+              animate={{ opacity: [1, 0.75, 1] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               <Phone className="size-3" />
               <span>{siteConfig.phone.emergency}</span>
-            </a>
+            </motion.a>
 
             {/* Book Appointment CTA */}
             <Link
@@ -124,14 +135,18 @@ export default function Navbar() {
               <SheetContent side="right" className="w-72">
                 <div className="flex flex-col gap-6 p-4">
                   {/* Sheet Logo */}
-                  <Link
-                    href="/"
-                    className="flex items-center gap-2 text-lg font-bold tracking-tight"
-                  >
-                    <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
+                  <Link href="/" className="flex items-center gap-2.5">
+                    <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-sm font-bold tracking-wide text-primary-foreground shadow-sm shadow-primary/20">
                       MB
                     </span>
-                    {siteConfig.name}
+                    <div className="flex flex-col leading-tight">
+                      <span className="text-xs font-bold tracking-wider text-foreground">
+                        MOMBASA BREEZE
+                      </span>
+                      <span className="text-[10px] font-medium tracking-widest text-muted-foreground/60">
+                        HOSPITAL
+                      </span>
+                    </div>
                   </Link>
 
                   {/* Emergency Contact in Sheet */}
@@ -149,7 +164,7 @@ export default function Navbar() {
                       <SheetClose key={link.href}>
                         <Link
                           href={link.href}
-                          className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                          className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-primary"
                         >
                           {link.label}
                         </Link>

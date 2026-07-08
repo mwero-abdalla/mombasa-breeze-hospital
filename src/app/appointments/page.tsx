@@ -11,6 +11,7 @@ import {
   User,
 } from "lucide-react";
 import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -56,6 +57,8 @@ const initialState: FormData = {
   doctor: "",
   reason: "",
 };
+
+const iconClasses = "h-4 w-4 shrink-0 text-ocean";
 
 export default function AppointmentsPage() {
   const [formData, setFormData] = useState<FormData>(initialState);
@@ -152,122 +155,178 @@ export default function AppointmentsPage() {
   }
 
   const selectClass =
-    "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80";
+    "h-9 w-full min-w-0 rounded-lg border border-input bg-transparent px-3 py-1.5 text-sm transition-colors outline-none focus-visible:border-ocean focus-visible:ring-3 focus-visible:ring-ocean/20 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:bg-input/30 dark:disabled:bg-input/80 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2364748B%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.22%208.22a.75.75%200%200%201%201.06%200L10%2011.94l3.72-3.72a.75.75%200%201%201%201.06%201.06l-4.25%204.25a.75.75%200%200%201-1.06%200L5.22%209.28a.75.75%200%200%201%200-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat pr-8";
+
+  const fieldErrorClass =
+    "text-xs text-destructive mt-1 flex items-center gap-1";
 
   return (
     <>
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 text-white">
-        <div className="absolute inset-0 bg-black/10" />
+      <section className="relative bg-gradient-to-br from-ocean via-ocean to-teal text-white overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDMiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
         <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36 text-center">
+          <Badge variant="secondary" className="mb-5">
+            BOOK AN APPOINTMENT
+          </Badge>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             Book an Appointment
           </h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
-            Schedule your visit with ease
+            Schedule your visit with ease. We&apos;ll confirm your appointment
+            promptly.
           </p>
         </div>
+        <div className="wave-divider absolute bottom-0 left-0 right-0 h-6" />
       </section>
 
-      <section className="py-16">
+      <section className="py-16 md:py-20">
         <div className="max-w-3xl mx-auto px-4">
           <AnimatePresence mode="wait">
             {submitted ? (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <Card className="text-center py-12">
+                <Card className="text-center py-12 border-t-4 border-t-teal overflow-hidden">
                   <CardHeader>
-                    <div className="flex justify-center mb-4">
-                      <div className="rounded-full bg-green-100 p-3">
-                        <CheckCircle className="h-12 w-12 text-green-600" />
+                    <motion.div
+                      className="flex justify-center mb-4"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        delay: 0.2,
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 15,
+                      }}
+                    >
+                      <div className="rounded-full bg-teal-light p-4">
+                        <CheckCircle className="h-14 w-14 text-teal" />
                       </div>
-                    </div>
-                    <CardTitle className="text-2xl mb-2">
-                      Appointment Booked!
-                    </CardTitle>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <CardTitle className="text-2xl mb-2">
+                        Appointment Booked!
+                      </CardTitle>
+                    </motion.div>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-muted-foreground">
+                  <CardContent className="space-y-5">
+                    <motion.p
+                      className="text-muted-foreground max-w-sm mx-auto"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                    >
                       Your appointment request has been submitted successfully.
                       We will contact you to confirm your visit.
-                    </p>
-                    <div className="bg-muted rounded-lg p-4 text-left space-y-2 text-sm">
-                      <p>
-                        <strong>Name:</strong> {formData.fullName}
-                      </p>
-                      <p>
-                        <strong>Phone:</strong> {formData.phone}
-                      </p>
-                      <p>
-                        <strong>Email:</strong> {formData.email}
-                      </p>
-                      <p>
-                        <strong>Date:</strong> {formData.preferredDate}
-                      </p>
-                      <p>
-                        <strong>Time:</strong>{" "}
-                        {timeSlots.find(
-                          (s) => s.value === formData.preferredTime,
-                        )?.label ?? formData.preferredTime}
-                      </p>
-                      <p>
-                        <strong>Department:</strong>{" "}
-                        {departments.find(
-                          (d) => d.value === formData.department,
-                        )?.label ?? formData.department}
-                      </p>
-                      <p>
-                        <strong>Doctor:</strong>{" "}
-                        {doctors.find((d) => d.name === formData.doctor)
-                          ?.name ?? formData.doctor}
-                      </p>
-                      <p>
-                        <strong>Reason:</strong> {formData.reason}
-                      </p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      onClick={() => {
-                        setSubmitted(false);
-                        setFormData(initialState);
-                        setErrors({});
-                        setTouched(new Set());
-                      }}
-                      className="cursor-pointer"
+                    </motion.p>
+                    <motion.div
+                      className="bg-ocean-light/50 rounded-xl p-5 text-left space-y-3 text-sm border border-ocean/10"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
                     >
-                      Book Another Appointment
-                    </Button>
+                      {[
+                        { label: "Name", value: formData.fullName },
+                        { label: "Phone", value: formData.phone },
+                        { label: "Email", value: formData.email },
+                        { label: "Date", value: formData.preferredDate },
+                        {
+                          label: "Time",
+                          value:
+                            timeSlots.find(
+                              (s) => s.value === formData.preferredTime,
+                            )?.label ?? formData.preferredTime,
+                        },
+                        {
+                          label: "Department",
+                          value:
+                            departments.find(
+                              (d) => d.value === formData.department,
+                            )?.label ?? formData.department,
+                        },
+                        {
+                          label: "Doctor",
+                          value:
+                            doctors.find((d) => d.name === formData.doctor)
+                              ?.name ?? formData.doctor,
+                        },
+                        { label: "Reason", value: formData.reason },
+                      ].map((item) => (
+                        <div
+                          key={item.label}
+                          className="flex justify-between gap-4"
+                        >
+                          <span className="font-medium text-muted-foreground shrink-0">
+                            {item.label}
+                          </span>
+                          <span className="text-foreground text-right">
+                            {item.value}
+                          </span>
+                        </div>
+                      ))}
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setSubmitted(false);
+                          setFormData(initialState);
+                          setErrors({});
+                          setTouched(new Set());
+                        }}
+                        className="cursor-pointer"
+                      >
+                        Book Another Appointment
+                      </Button>
+                    </motion.div>
                   </CardContent>
                 </Card>
               </motion.div>
             ) : (
               <motion.div
                 key="form"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-2xl">
+                <Card className="border-t-4 border-t-ocean overflow-hidden">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-xl flex items-center gap-2">
+                      <Calendar className="h-5 w-5 text-ocean" />
                       Book an Appointment
                     </CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Fill in the details below and we&apos;ll get back to you
+                      to confirm your visit.
+                    </p>
                   </CardHeader>
                   <CardContent>
                     <form
                       onSubmit={handleSubmit}
-                      className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                      className="grid grid-cols-1 md:grid-cols-2 gap-5"
                       noValidate
                     >
-                      <div className="space-y-2">
-                        <Label htmlFor="fullName">
-                          <User className="h-4 w-4 inline mr-1" />
-                          Full Name
+                      <div className="space-y-1.5">
+                        <Label
+                          htmlFor="fullName"
+                          className="text-sm font-medium"
+                        >
+                          <User className={iconClasses} />
+                          Full Name <span className="text-rose">*</span>
                         </Label>
                         <Input
                           id="fullName"
@@ -277,62 +336,71 @@ export default function AppointmentsPage() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           aria-invalid={!!errors.fullName}
+                          className="h-9"
                         />
                         {errors.fullName && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.fullName}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">
-                          <Phone className="h-4 w-4 inline mr-1" />
-                          Phone
+                      <div className="space-y-1.5">
+                        <Label htmlFor="phone" className="text-sm font-medium">
+                          <Phone className={iconClasses} />
+                          Phone <span className="text-rose">*</span>
                         </Label>
                         <Input
                           id="phone"
                           name="phone"
                           type="tel"
-                          placeholder="Enter your phone number"
+                          placeholder="+254 7XX XXX XXX"
                           value={formData.phone}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           aria-invalid={!!errors.phone}
+                          className="h-9"
                         />
                         {errors.phone && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.phone}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="email">
-                          <Mail className="h-4 w-4 inline mr-1" />
-                          Email
+                      <div className="space-y-1.5">
+                        <Label htmlFor="email" className="text-sm font-medium">
+                          <Mail className={iconClasses} />
+                          Email <span className="text-rose">*</span>
                         </Label>
                         <Input
                           id="email"
                           name="email"
                           type="email"
-                          placeholder="Enter your email address"
+                          placeholder="you@example.com"
                           value={formData.email}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           aria-invalid={!!errors.email}
+                          className="h-9"
                         />
                         {errors.email && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.email}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="preferredDate">
-                          <Calendar className="h-4 w-4 inline mr-1" />
-                          Preferred Date
+                      <div className="space-y-1.5">
+                        <Label
+                          htmlFor="preferredDate"
+                          className="text-sm font-medium"
+                        >
+                          <Calendar className={iconClasses} />
+                          Preferred Date <span className="text-rose">*</span>
                         </Label>
                         <Input
                           id="preferredDate"
@@ -343,18 +411,23 @@ export default function AppointmentsPage() {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           aria-invalid={!!errors.preferredDate}
+                          className="h-9"
                         />
                         {errors.preferredDate && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.preferredDate}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="preferredTime">
-                          <Clock className="h-4 w-4 inline mr-1" />
-                          Preferred Time
+                      <div className="space-y-1.5">
+                        <Label
+                          htmlFor="preferredTime"
+                          className="text-sm font-medium"
+                        >
+                          <Clock className={iconClasses} />
+                          Preferred Time <span className="text-rose">*</span>
                         </Label>
                         <select
                           id="preferredTime"
@@ -373,16 +446,20 @@ export default function AppointmentsPage() {
                           ))}
                         </select>
                         {errors.preferredTime && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.preferredTime}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="department">
-                          <Calendar className="h-4 w-4 inline mr-1" />
-                          Department
+                      <div className="space-y-1.5">
+                        <Label
+                          htmlFor="department"
+                          className="text-sm font-medium"
+                        >
+                          <Calendar className={iconClasses} />
+                          Department <span className="text-rose">*</span>
                         </Label>
                         <select
                           id="department"
@@ -401,16 +478,17 @@ export default function AppointmentsPage() {
                           ))}
                         </select>
                         {errors.department && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.department}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="doctor">
-                          <User className="h-4 w-4 inline mr-1" />
-                          Doctor
+                      <div className="space-y-1.5">
+                        <Label htmlFor="doctor" className="text-sm font-medium">
+                          <User className={iconClasses} />
+                          Doctor <span className="text-rose">*</span>
                         </Label>
                         <select
                           id="doctor"
@@ -421,7 +499,11 @@ export default function AppointmentsPage() {
                           className={selectClass}
                           aria-invalid={!!errors.doctor}
                         >
-                          <option value="">Select a doctor</option>
+                          <option value="">
+                            {formData.department
+                              ? "Select a doctor"
+                              : "Select a department first"}
+                          </option>
                           {doctorsForDepartment.map((doc) => (
                             <option key={doc.name} value={doc.name}>
                               {doc.name} &mdash; {doc.specialty}
@@ -429,29 +511,32 @@ export default function AppointmentsPage() {
                           ))}
                         </select>
                         {errors.doctor && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.doctor}
                           </p>
                         )}
                       </div>
 
-                      <div className="space-y-2 md:col-span-2">
-                        <Label htmlFor="reason">
-                          <MessageSquare className="h-4 w-4 inline mr-1" />
-                          Reason for Visit
+                      <div className="space-y-1.5 md:col-span-2">
+                        <Label htmlFor="reason" className="text-sm font-medium">
+                          <MessageSquare className={iconClasses} />
+                          Reason for Visit <span className="text-rose">*</span>
                         </Label>
                         <Textarea
                           id="reason"
                           name="reason"
-                          placeholder="Briefly describe your reason for visiting"
+                          placeholder="Briefly describe your symptoms or reason for visiting (minimum 10 characters)"
                           value={formData.reason}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           aria-invalid={!!errors.reason}
                           rows={3}
+                          className="min-h-[80px]"
                         />
                         {errors.reason && (
-                          <p className="text-sm text-destructive">
+                          <p className={fieldErrorClass}>
+                            <span className="sr-only">Error: </span>
                             {errors.reason}
                           </p>
                         )}
@@ -461,8 +546,9 @@ export default function AppointmentsPage() {
                         <Button
                           type="submit"
                           size="lg"
-                          className="w-full cursor-pointer"
+                          className="w-full cursor-pointer bg-ocean hover:bg-ocean/90"
                         >
+                          <Calendar className="h-4 w-4" />
                           Book Appointment
                         </Button>
                       </div>

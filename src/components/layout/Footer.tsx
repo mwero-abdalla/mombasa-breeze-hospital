@@ -1,219 +1,174 @@
-import {
-  Camera,
-  Clock,
-  Hash,
-  Heart,
-  Mail,
-  MapPin,
-  MessageCircle,
-  Phone,
-  Play,
-} from "lucide-react";
 import Link from "next/link";
-import { navigation, siteConfig } from "@/lib/data";
+import { siteConfig, navigation } from "@/lib/data";
+import { cn } from "@/lib/utils";
+import { MapPin, Phone, Mail, Clock, Heart, MessageSquare, Hash, Camera, Play } from "lucide-react";
 
 export default function Footer() {
-  return (
-    <footer className="relative bg-[#0F172A] text-white">
-      {/* Wave Divider */}
-      <div className="absolute inset-x-0 -top-px h-8 overflow-hidden text-primary/15">
-        <svg
-          viewBox="0 0 1200 32"
-          className="h-full w-full"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M0,16 Q150,32 300,16 T600,16 T900,16 T1200,16 L1200,32 L0,32 Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+  const currentYear = new Date().getFullYear();
 
-      <div className="mx-auto max-w-7xl px-4 pt-16 pb-12">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand Column */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-sm font-bold tracking-wide text-white shadow-sm shadow-primary/20">
+  return (
+    <footer className="bg-deep-ocean text-deep-ocean-foreground">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="section-rhythm grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-1">
+            <Link href="/" className="flex items-center gap-2.5" aria-label="Mombasa Breeze Hospital - Home">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-warm-sand text-xs font-bold tracking-wide text-deep-ocean shadow-sm shadow-warm-sand/20">
                 MB
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="text-xs font-bold tracking-wider text-white">
+                <span className="text-xs font-semibold tracking-wider text-card-foreground">
                   MOMBASA BREEZE
                 </span>
-                <span className="text-[10px] font-medium tracking-widest text-white/50">
+                <span className="text-[10px] font-medium tracking-widest text-muted-foreground/60">
                   HOSPITAL
                 </span>
               </div>
             </Link>
-            <p className="text-sm leading-relaxed text-gray-400">
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
               {siteConfig.tagline}
             </p>
-            <div className="flex gap-2.5">
-              <a
-                href={siteConfig.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex size-8 items-center justify-center rounded-full bg-white/10 text-gray-400 transition-colors hover:bg-primary/20 hover:text-primary"
-                aria-label="Facebook"
-              >
-                <MessageCircle className="size-4" />
-              </a>
-              <a
-                href={siteConfig.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex size-8 items-center justify-center rounded-full bg-white/10 text-gray-400 transition-colors hover:bg-primary/20 hover:text-primary"
-                aria-label="Twitter"
-              >
-                <Hash className="size-4" />
-              </a>
-              <a
-                href={siteConfig.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex size-8 items-center justify-center rounded-full bg-white/10 text-gray-400 transition-colors hover:bg-primary/20 hover:text-primary"
-                aria-label="Instagram"
-              >
-                <Camera className="size-4" />
-              </a>
-              <a
-                href={siteConfig.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex size-8 items-center justify-center rounded-full bg-white/10 text-gray-400 transition-colors hover:bg-primary/20 hover:text-primary"
-                aria-label="YouTube"
-              >
-                <Play className="size-4" />
-              </a>
+            <div className="mt-6 flex gap-4">
+              {[
+                { icon: MessageSquare, href: siteConfig.social.facebook, label: "Facebook" },
+                { icon: Hash, href: siteConfig.social.twitter, label: "Twitter" },
+                { icon: Camera, href: siteConfig.social.instagram, label: "Instagram" },
+                { icon: Play, href: siteConfig.social.youtube, label: "YouTube" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-card/50 border border-border/50 text-muted-foreground/70 transition-colors hover:bg-warm-sand/20 hover:text-warm-sand"
+                  aria-label={label}
+                >
+                  <Icon className="size-4" aria-hidden="true" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links Column */}
-          <div className="space-y-4">
-            <h3 className="text-xs font-bold tracking-widest text-white/60">
-              QUICK LINKS
+          <nav className="lg:col-span-1">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-card-foreground">
+              Quick Links
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="mt-4 space-y-3">
               {navigation.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 transition-colors hover:text-primary"
+                    className="text-sm text-muted-foreground transition-colors hover:text-warm-sand"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact Column */}
-          <div className="space-y-4">
-            <h3 className="text-xs font-bold tracking-widest text-white/60">
-              CONTACT
+          <div className="lg:col-span-1">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-card-foreground">
+              Contact
             </h3>
-            <div className="space-y-3">
+            <address className="mt-4 space-y-4 not-italic">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span className="text-sm text-gray-400">
-                  {siteConfig.location.address}, {siteConfig.location.city}
-                </span>
-              </div>
-              <div className="flex items-start gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-primary" />
-                <div className="flex flex-col gap-0.5 text-sm">
-                  <a
-                    href={`tel:${siteConfig.phone.reception.replace(/\s/g, "")}`}
-                    className="text-gray-400 transition-colors hover:text-primary"
-                  >
-                    {siteConfig.phone.reception} (Reception)
-                  </a>
-                  <a
-                    href={`tel:${siteConfig.phone.ambulance.replace(/\s/g, "")}`}
-                    className="text-gray-400 transition-colors hover:text-primary"
-                  >
-                    {siteConfig.phone.ambulance} (Ambulance)
-                  </a>
+                <MapPin className="size-4 mt-0.5 flex-shrink-0 text-warm-sand/80" aria-hidden="true" />
+                <div>
+                  <p className="text-sm font-medium text-card-foreground">
+                    {siteConfig.location.address}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {siteConfig.location.landmark}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {siteConfig.location.city}, {siteConfig.location.county}
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0 text-primary" />
-                <div className="flex flex-col gap-0.5 text-sm">
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="text-gray-400 transition-colors hover:text-primary"
-                  >
-                    {siteConfig.email}
-                  </a>
-                  {siteConfig.emailAlt && (
-                    <a
-                      href={`mailto:${siteConfig.emailAlt}`}
-                      className="text-gray-400 transition-colors hover:text-primary"
-                    >
-                      {siteConfig.emailAlt}
+                <Phone className="size-4 mt-0.5 flex-shrink-0 text-warm-sand/80" aria-hidden="true" />
+                <div>
+                  <p className="text-sm font-medium text-card-foreground">
+                    <a href={`tel:${siteConfig.phone.reception.replace(/\s/g, "")}`} className="hover:text-warm-sand transition-colors">
+                      {siteConfig.phone.reception}
                     </a>
-                  )}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    <a href={`tel:${siteConfig.phone.emergency.replace(/\s/g, "")}`} className="hover:text-warm-sand transition-colors">
+                      Emergency: {siteConfig.phone.emergency}
+                    </a>
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span className="text-sm text-gray-400">
-                  {siteConfig.operatingHours}
-                </span>
+                <Mail className="size-4 mt-0.5 flex-shrink-0 text-warm-sand/80" aria-hidden="true" />
+                <a href={`mailto:${siteConfig.email}`} className="text-sm text-muted-foreground hover:text-warm-sand transition-colors">
+                  {siteConfig.email}
+                </a>
               </div>
-            </div>
+              <div className="flex items-start gap-3">
+                <Clock className="size-4 mt-0.5 flex-shrink-0 text-warm-sand/80" aria-hidden="true" />
+                <p className="text-sm text-muted-foreground">{siteConfig.operatingHours}</p>
+              </div>
+            </address>
           </div>
 
-          {/* Emergency Column */}
-          <div className="space-y-4">
-            <h3 className="text-xs font-bold tracking-widest text-white/60">
-              EMERGENCY
+          <div className="lg:col-span-1">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-card-foreground">
+              Emergency
             </h3>
-            <div className="rounded-xl border border-red-500/20 bg-gradient-to-br from-red-600/10 to-red-600/5 p-4">
-              <div className="mb-1.5 flex items-center gap-2">
-                <Heart className="size-4 text-red-400" />
-                <span className="text-xs font-bold tracking-wider text-red-300">
-                  24/7 EMERGENCY
-                </span>
-              </div>
+            <div className="mt-4 space-y-4">
               <a
                 href={`tel:${siteConfig.phone.emergency.replace(/\s/g, "")}`}
-                className="block text-xl font-bold tracking-tight text-white transition-colors hover:text-red-300"
+                className="inline-flex items-center gap-2 rounded-lg bg-coral-pulse px-4 py-3 text-sm font-semibold text-coral-pulse-foreground shadow-sm shadow-coral-pulse/30 transition-all hover:bg-coral-pulse/90 hover:shadow-coral-pulse/40"
               >
-                {siteConfig.phone.emergency}
+                <Phone className="size-4" aria-hidden="true" />
+                <span>{siteConfig.phone.emergency}</span>
               </a>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary/90">
-                KMPDC Registered
-              </span>
-              {siteConfig.shaApproved && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-green-500/20 bg-green-500/10 px-2.5 py-1 text-xs font-medium text-green-300">
-                  SHA Approved
-                </span>
-              )}
+              <div className="space-y-2">
+                <p className="text-xs font-semibold tracking-wider uppercase text-muted-foreground/60">
+                  24/7 Emergency Care
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inset-0 rounded-full bg-coral-pulse animate-pulse-coral" />
+                    <span className="relative block h-full w-full rounded-full bg-coral-pulse" />
+                  </span>
+                  <span className="text-sm text-muted-foreground">Always Available</span>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-border/30 space-y-2">
+                <div className="flex items-center gap-2 rounded-full border border-warm-sand/30 bg-warm-sand/10 px-3 py-1">
+                  <span className="text-[10px] font-semibold tracking-wider text-warm-sand">
+                    KMPDC
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {siteConfig.kmpdcRegistration}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 rounded-full border border-warm-sand/30 bg-warm-sand/10 px-3 py-1">
+                  <Heart className="size-3 text-coral-pulse" aria-hidden="true" />
+                  <span className="text-[10px] font-semibold tracking-wider text-coral-pulse">
+                    SHA Approved
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-white/5">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-4 py-4 text-xs text-gray-500 sm:flex-row sm:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
-            reserved.
-          </p>
-          <div className="flex items-center gap-2">
-            <span>KMPDC: {siteConfig.kmpdcRegistration}</span>
-            {siteConfig.shaApproved && (
-              <>
-                <span className="text-white/10">|</span>
-                <span className="text-green-400">SHA Approved</span>
-              </>
-            )}
+        <div className="border-t border-border/30">
+          <div className="py-6 flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-muted-foreground">
+              &copy; {currentYear} Mombasa Breeze Hospital. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="px-3 py-1 rounded-full border border-warm-sand/30 bg-warm-sand/10 text-warm-sand text-xs font-medium">
+                Level 4 Hospital
+              </span>
+              <span className="hidden sm:inline">|</span>
+              <span>KMPDC Registered & SHA Approved</span>
+            </div>
           </div>
         </div>
       </div>

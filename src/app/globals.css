@@ -2,6 +2,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Fonts loaded via next/font in layout.tsx */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -19,148 +21,170 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
+  --color-coral-pulse: var(--coral-pulse);
+  --color-coral-pulse-foreground: var(--coral-pulse-foreground);
+  --color-sage-reef: var(--sage-reef);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-ocean: #0b6bcb;
-  --color-ocean-light: #e8f1fb;
-  --color-teal: #0d9488;
-  --color-teal-light: #e6f7f5;
-  --color-rose: #e11d48;
-  --color-rose-light: #fde8ed;
-  --color-gold: #f59e0b;
-  --color-slate-warm: #f8fafc;
+  --color-deep-ocean: var(--deep-ocean);
+  --color-warm-sand: var(--warm-sand);
+  --color-coral-pulse: var(--coral-pulse);
+  --color-sage-reef: var(--sage-reef);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-dm-sans);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: #f8fafc;
-  --foreground: #1e293b;
-  --card: #ffffff;
-  --card-foreground: #1e293b;
-  --popover: #ffffff;
-  --popover-foreground: #1e293b;
-  --primary: #0b6bcb;
-  --primary-foreground: #ffffff;
-  --secondary: #0d9488;
-  --secondary-foreground: #ffffff;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #e8f1fb;
-  --accent-foreground: #0c4a6e;
-  --destructive: #e11d48;
-  --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #0b6bcb;
-  --chart-1: #0b6bcb;
-  --chart-2: #0d9488;
-  --chart-3: #2563eb;
-  --chart-4: #f59e0b;
-  --chart-5: #84cc16;
+  --background: #FEFEFE;
+  --foreground: #1A1A2E;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A2E;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A2E;
+  --primary: #0A1628;
+  --primary-foreground: #FEFEFE;
+  --secondary: #5A7D6E;
+  --secondary-foreground: #FEFEFE;
+  --muted: #F5F3F0;
+  --muted-foreground: #6B7280;
+  --accent: #F5F3F0;
+  --accent-foreground: #1A1A2E;
+  --destructive: #E05A47;
+  --destructive-foreground: #FEFEFE;
+  --coral-pulse: #E05A47;
+  --coral-pulse-foreground: #FEFEFE;
+  --border: #E5E2DC;
+  --input: #E5E2DC;
+  --ring: #0A1628;
+  --deep-ocean: #0A1628;
+  --warm-sand: #D4A574;
+  --coral-pulse: #E05A47;
+  --sage-reef: #5A7D6E;
+  --surface: #FEFEFE;
+  --surface-muted: #F5F3F0;
+  --text-primary: #1A1A2E;
+  --text-muted: #6B7280;
 }
 
 .dark {
-  --background: #0f172a;
-  --foreground: #e2e8f0;
-  --card: #1e293b;
-  --card-foreground: #e2e8f0;
-  --popover: #1e293b;
-  --popover-foreground: #e2e8f0;
-  --primary: #60a5fa;
-  --primary-foreground: #0f172a;
-  --secondary: #2dd4bf;
-  --secondary-foreground: #0f172a;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e3a5f;
-  --accent-foreground: #dbeafe;
-  --destructive: #fb7185;
-  --destructive-foreground: #0f172a;
-  --border: #334155;
-  --input: #334155;
-  --ring: #60a5fa;
+  --background: #0A1628;
+  --foreground: #FEFEFE;
+  --card: #111A2E;
+  --card-foreground: #FEFEFE;
+  --popover: #111A2E;
+  --popover-foreground: #FEFEFE;
+  --primary: #D4A574;
+  --primary-foreground: #0A1628;
+  --secondary: #7BA892;
+  --secondary-foreground: #0A1628;
+  --muted: #16213E;
+  --muted-foreground: #9CA3AF;
+  --accent: #16213E;
+  --accent-foreground: #FEFEFE;
+  --destructive: #F07A6A;
+  --destructive-foreground: #FEFEFE;
+  --coral-pulse: #F07A6A;
+  --coral-pulse-foreground: #FEFEFE;
+  --border: #1E2A4A;
+  --input: #1E2A4A;
+  --ring: #D4A574;
+  --deep-ocean: #0A1628;
+  --warm-sand: #D4A574;
+  --coral-pulse: #F07A6A;
+  --sage-reef: #7BA892;
+  --surface: #0A1628;
+  --surface-muted: #111A2E;
+  --text-primary: #FEFEFE;
+  --text-muted: #9CA3AF;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: var(--ring);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+  ::selection {
+    background-color: color-mix(in srgb, var(--warm-sand) 30%, transparent);
+    color: var(--deep-ocean);
   }
 }
 
 @layer utilities {
-  .wave-divider {
-    position: relative;
-  }
-  .wave-divider::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 24px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' fill='%230B6BCB' opacity='0.06'%3E%3Cpath d='M0,24 C360,48 720,0 1080,24 C1260,36 1350,30 1440,24 L1440,48 L0,48 Z'/%3E%3C/svg%3E")
-      repeat-x bottom;
-    background-size: 720px 24px;
-    pointer-events: none;
-  }
-  .wave-divider-teal::after {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' fill='%230D9488' opacity='0.06'%3E%3Cpath d='M0,24 C360,48 720,0 1080,24 C1260,36 1350,30 1440,24 L1440,48 L0,48 Z'/%3E%3C/svg%3E")
-      repeat-x bottom;
-    background-size: 720px 24px;
-  }
-  .card-hover {
-    @apply transition-all duration-300 ease-out;
-  }
-  .card-hover:hover {
-    @apply -translate-y-1 shadow-lg;
-  }
-  .glass {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
-  }
   .text-balance {
     text-wrap: balance;
   }
+  .coastline-divider {
+    @apply w-full h-2 overflow-visible;
+  }
+  .coastline-divider svg {
+    @apply w-full h-full;
+  }
+  .card-flat {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+  }
+  .card-raised {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.05);
+  }
+  .card-floating {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  }
+  .section-rhythm {
+    @apply py-24 md:py-32;
+  }
+  .container-rhythm {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-@keyframes pulse-urgent {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
+@keyframes coastline-draw {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
 }
 
-.animate-pulse-urgent {
-  animation: pulse-urgent 2s ease-in-out infinite;
+@keyframes pulse-coral {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+.animate-coastline-draw {
+  animation: coastline-draw 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.animate-pulse-coral {
+  animation: pulse-coral 2.5s ease-in-out infinite;
 }

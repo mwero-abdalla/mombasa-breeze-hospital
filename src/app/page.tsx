@@ -8,8 +8,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   insurancePartners,
   services,
+  siteConfig,
   stats,
-  testimonials,
   whyChooseUs,
 } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -335,144 +335,295 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
       <circle cx="12" cy="10" r="3" />
     </svg>
   ),
+  BadgeDollarSign: ({ className }) => (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <path d="M12 2v20" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  ),
 };
 
 export default function HomePage() {
   return (
     <>
-      <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-secondary/80" />
-        <div className="absolute inset-0 opacity-5">
+      {/* ── Hero: Coastline Pulse as Thesis ── */}
+      <section className="page-surface relative overflow-hidden bg-background">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--secondary)/0.14),transparent_30%),radial-gradient(circle_at_top_right,hsl(var(--primary)/0.12),transparent_28%)]" />
+        <div
+          className="absolute inset-x-0 top-10 mx-auto h-64 w-[min(90vw,56rem)] rounded-full bg-primary/10 blur-3xl"
+          aria-hidden="true"
+        />
+
+        {/* Coastline animated draw — the signature element */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <svg
-            className="w-full h-full max-h-4 md:max-h-6"
-            viewBox="0 0 1200 60"
+            className="w-full max-w-6xl h-auto opacity-80"
+            viewBox="0 0 1200 120"
             preserveAspectRatio="none"
             style={{
-              stroke: "hsl(var(--secondary-foreground))",
-              strokeWidth: 1,
+              stroke: "hsl(var(--color-coastline-subtle))",
+              strokeWidth: 1.25,
               fill: "none",
             }}
+            aria-hidden="true"
           >
             <path
-              d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+              className="coastline-path--draw animate-coastline-draw"
+              d="M0,60 C150,85 300,35 450,60 C600,85 750,35 900,60 C1050,85 1200,60 1200,60"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeDasharray="1000"
-              strokeDashoffset="1000"
-              className="animate-coastline-draw"
             />
           </svg>
         </div>
-        <div className="relative container-rhythm py-24 md:py-32">
-          <div className="max-w-4xl">
-            <div className="mb-8 flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wider text-secondary">
+
+        {/* Subtle ambient pulse */}
+        <div className="absolute inset-0 opacity-[0.06] animate-coastline-pulse">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            style={{
+              stroke: "hsl(var(--color-primary))",
+              strokeWidth: 0.5,
+              fill: "none",
+            }}
+            aria-hidden="true"
+          >
+            <path
+              d="M0,60 C150,85 300,35 450,60 C600,85 750,35 900,60 C1050,85 1200,60 1200,60"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+
+        <div className="relative container-rhythm py-20 md:py-24 lg:py-32">
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)] lg:gap-16">
+            <div className="max-w-3xl">
+              {/* Earmark badge */}
+              <span
+                className="badge-earmark badge-earmark--primary mb-8 animate-fade-in-up"
+                style={{ animationDelay: "0.1s" }}
+              >
                 Level 4 Hospital · Mombasa Saba Saba
               </span>
-            </div>
-            <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-display font-semibold tracking-tight text-balance text-card-foreground leading-[1.1]">
-              Your Trusted Healthcare Partner in Mombasa
-            </h1>
-            <p className="mb-10 text-lg md:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed">
-              Providing quality, compassionate, and affordable healthcare 24
-              hours a day.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/appointments">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Book Appointment
-                </Button>
-              </Link>
-              <a
-                href={`tel:+254798164953`}
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-secondary-foreground/30 bg-secondary/10 px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/20 w-full sm:w-auto"
+
+              {/* Headline — Syne Display, the thesis */}
+              <h1
+                className="text-display text-foreground text-balance mb-6 animate-fade-in-up"
+                style={{ animationDelay: "0.2s" }}
+              >
+                Quality Healthcare with Compassion
+              </h1>
+
+              {/* Supporting copy */}
+              <p
+                className="text-body text-muted-foreground max-w-2xl mb-10 animate-fade-in-up"
+                style={{ animationDelay: "0.3s" }}
+              >
+                Mombasa Breeze Hospital is a Level 4 private hospital on Ronald
+                Ngala Road, serving Mombasa and the Coast region with 24/7
+                emergency care, 53 inpatient beds, and eight specialized
+                departments — all under one roof.
+              </p>
+
+              {/* Coastline divider */}
+              <div
+                className="coastline-divider mb-10 animate-fade-in-up"
+                style={{ animationDelay: "0.4s" }}
+                aria-hidden="true"
               >
                 <svg
+                  viewBox="0 0 1200 60"
+                  preserveAspectRatio="none"
                   aria-hidden="true"
-                  focusable="false"
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
                 >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
+                  <path
+                    className="coastline-path coastline-path--thick"
+                    d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+                  />
                 </svg>
-                Emergency: +254 798 164 953
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-card-foreground transition-colors hover:bg-white/10 w-full sm:w-auto"
+              </div>
+
+              {/* CTAs */}
+              <div
+                className="flex flex-col gap-4 sm:flex-row sm:flex-wrap animate-fade-in-up"
+                style={{ animationDelay: "0.5s" }}
               >
-                Find Us
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
+                <Link href="/appointments">
+                  <Button
+                    size="lg"
+                    className="btn-coastline w-full rounded-full px-6 sm:w-auto"
+                  >
+                    Book Appointment
+                  </Button>
+                </Link>
+                <a
+                  href="tel:+254798164953"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted sm:w-auto emergency-pulse"
+                  aria-label="Call emergency: +254 798 164 953"
                 >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </Link>
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    className="h-4 w-4 text-coral-reef"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Emergency: +254 798 164 953
+                </a>
+                <Link
+                  href="/contact"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-transparent px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted sm:w-auto"
+                >
+                  Find Us
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
             </div>
+
+            <Card className="border-border/60 bg-card/92 p-6 shadow-[0_24px_70px_-40px_rgba(9,35,37,0.45)] backdrop-blur-sm md:p-8">
+              <CardContent className="p-0">
+                <div className="mb-6 flex items-start justify-between gap-4 border-b border-border/60 pb-5">
+                  <div>
+                    <span className="badge-earmark badge-earmark--muted mb-3 inline-block">
+                      Quick facts
+                    </span>
+                    <h2 className="text-h2 text-foreground">What to expect</h2>
+                  </div>
+                  <div className="rounded-full border border-secondary/20 bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary">
+                    24/7
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {stats.slice(0, 4).map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="rounded-2xl border border-border/70 bg-background/70 p-4"
+                    >
+                      <p className="text-2xl font-display font-semibold tracking-tight text-primary">
+                        {stat.value}
+                      </p>
+                      <p className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 space-y-3 rounded-2xl border border-border/60 bg-muted/35 p-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-foreground">
+                      Address
+                    </span>
+                    <span className="text-right text-sm text-muted-foreground">
+                      {siteConfig.location.address}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-foreground">
+                      Emergency
+                    </span>
+                    <a
+                      href={`tel:${siteConfig.phone.emergency.replace(/\s/g, "")}`}
+                      className="text-sm font-semibold text-secondary transition-colors hover:text-secondary/80"
+                    >
+                      {siteConfig.phone.emergency}
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-foreground">
+                      Hours
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {siteConfig.operatingHours}
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-4">
+
+        {/* Bottom coastline wave */}
+        <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none">
           <svg
             className="w-full h-full"
             viewBox="0 0 1200 60"
             preserveAspectRatio="none"
             style={{
-              stroke: "hsl(var(--secondary-foreground))",
-              strokeWidth: 1.5,
+              stroke: "hsl(var(--color-coastline-subtle))",
+              strokeWidth: 1,
               fill: "none",
             }}
+            aria-hidden="true"
           >
             <path
               d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={1.5}
             />
           </svg>
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      {/* ── Stats Counter Section ── */}
+      <section className="py-16 md:py-24 bg-muted">
         <CounterSection />
       </section>
 
-      <section className="py-16 md:py-24 bg-muted/50">
+      {/* ── Why Choose Us ── */}
+      <section className="section-rhythm bg-background">
         <div className="container-rhythm">
-          <div className="mb-16 text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wider text-secondary mb-4">
+          <div className="max-w-2xl mx-auto text-center mb-16">
+            <span className="badge-earmark badge-earmark--muted mb-4 inline-block">
               WHY CHOOSE US
             </span>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold tracking-tight text-foreground">
-              Care That Sets Us Apart
-            </h2>
+            <h2 className="text-h1 text-foreground">Care That Sets Us Apart</h2>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyChooseUs.map((item, i) => {
+            {whyChooseUs.map((item, _i) => {
               const Icon = iconMap[item.icon] || iconMap.UserCheck;
               return (
                 <Card
                   key={item.title}
-                  className="card-raised h-full transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+                  variant="elevated"
+                  className={cn("p-6 h-full transition-all duration-300")}
                 >
-                  <CardContent className="p-6 flex flex-col h-full">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5">
-                      <Icon className="h-6 w-6 text-primary" />
+                  <CardContent className="p-0 flex flex-col h-full">
+                    <div className="icon-wrapper icon-wrapper--primary mb-4">
+                      <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                    <h3 className="text-h3 text-foreground mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    <p className="text-body-sm text-muted-foreground leading-relaxed flex-1">
                       {item.description}
                     </p>
                   </CardContent>
@@ -481,22 +632,38 @@ export default function HomePage() {
             })}
           </div>
         </div>
+
+        {/* Coastline divider between sections */}
+        <div className="container-rhythm coastline-divider" aria-hidden="true">
+          <svg
+            viewBox="0 0 1200 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className="coastline-path"
+              d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+            />
+          </svg>
+        </div>
       </section>
 
-      <section className="py-16 md:py-24">
+      {/* ── Services Overview ── */}
+      <section className="section-rhythm bg-muted">
         <div className="container-rhythm">
-          <div className="mb-16 text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wider text-secondary mb-4">
+          <div className="max-w-2xl mx-auto text-center mb-16">
+            <span className="badge-earmark badge-earmark--muted mb-4 inline-block">
               OUR SERVICES
             </span>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold tracking-tight text-foreground">
+            <h2 className="text-h1 text-foreground">
               Comprehensive Healthcare Services
             </h2>
-            <p className="mt-4 text-muted-foreground text-lg">
+            <p className="text-body text-muted-foreground mt-4">
               Specialized care across eight medical departments, all under one
               roof.
             </p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service) => {
               const Icon = iconMap[service.icon] || iconMap.Stethoscope;
@@ -505,18 +672,21 @@ export default function HomePage() {
                   key={service.title}
                   href={`/services/${service.title.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  <Card className="card-raised h-full transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 group">
-                    <CardContent className="p-6 flex flex-col h-full">
-                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 group-hover:bg-primary/10 transition-colors">
-                        <Icon className="h-6 w-6 text-primary" />
+                  <Card
+                    variant="interactive"
+                    className={cn("p-6 h-full transition-all duration-300")}
+                  >
+                    <CardContent className="p-0 flex flex-col h-full">
+                      <div className="icon-wrapper icon-wrapper--secondary mb-4 group-hover:scale-105 transition-transform duration-300">
+                        <Icon className="h-6 w-6" />
                       </div>
-                      <h3 className="text-lg font-semibold text-foreground mb-2">
+                      <h3 className="text-h3 text-foreground mb-2">
                         {service.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">
+                      <p className="text-body-sm text-muted-foreground leading-relaxed flex-1 mb-6">
                         {service.description.slice(0, 120)}...
                       </p>
-                      <div className="flex items-center justify-between pt-4 border-t border-border">
+                      <div className="flex items-center justify-between pt-4 border-t border-border/50">
                         <span className="text-sm font-medium text-primary">
                           Learn More
                         </span>
@@ -539,6 +709,7 @@ export default function HomePage() {
               );
             })}
           </div>
+
           <div className="mt-12 text-center">
             <Link
               href="/services"
@@ -560,22 +731,36 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
+
+        {/* Coastline divider */}
+        <div className="container-rhythm coastline-divider" aria-hidden="true">
+          <svg
+            viewBox="0 0 1200 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className="coastline-path"
+              d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+            />
+          </svg>
+        </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-muted/50">
+      {/* ── Testimonials ── */}
+      <section className="section-rhythm bg-background">
         <TestimonialsCarousel />
       </section>
 
-      <section className="py-16 md:py-24">
+      {/* ── Insurance Partners ── */}
+      <section className="section-rhythm bg-background">
         <div className="container-rhythm">
-          <div className="mb-12 text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wider text-secondary mb-4">
+          <div className="max-w-2xl mx-auto text-center mb-12">
+            <span className="badge-earmark badge-earmark--muted mb-4 inline-block">
               TRUSTED PARTNERS
             </span>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold tracking-tight text-foreground">
-              Insurance Partners
-            </h2>
-            <p className="mt-4 text-muted-foreground text-lg">
+            <h2 className="text-h1 text-foreground">Insurance Partners</h2>
+            <p className="text-body text-muted-foreground mt-4">
               We accept all major insurance providers including SHA for
               accessible healthcare.
             </p>
@@ -593,35 +778,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-primary relative overflow-hidden">
+      {/* ── CTA Section ── */}
+      <section className="section-rhythm relative overflow-hidden bg-primary">
         <div className="absolute inset-0 opacity-5">
           <svg
             className="w-full h-full"
             viewBox="0 0 1200 60"
             preserveAspectRatio="none"
             style={{
-              stroke: "hsl(var(--secondary-foreground))",
+              stroke: "hsl(var(--color-primary-foreground))",
               strokeWidth: 1,
               fill: "none",
             }}
+            aria-hidden="true"
           >
             <path
               d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={1}
             />
           </svg>
         </div>
         <div className="relative container-rhythm text-center">
           <div className="max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold tracking-wider text-secondary mb-4">
+            <span
+              className="badge-earmark badge-earmark--secondary mb-4 inline-block"
+              style={{
+                borderColor: "hsl(var(--color-primary-foreground) / 0.3)",
+                backgroundColor: "hsl(var(--color-primary-foreground) / 0.1)",
+                color: "hsl(var(--color-primary-foreground))",
+              }}
+            >
               READY TO BEGIN
             </span>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold tracking-tight text-card-foreground mb-4">
+            <h2 className="text-h1 text-primary-foreground mb-4">
               Ready to Book an Appointment?
             </h2>
-            <p className="text-muted-foreground/80 text-lg mb-8 max-w-lg mx-auto">
+            <p className="text-body text-primary-foreground/80 mb-8 max-w-lg mx-auto">
               Schedule your visit today and experience compassionate care from
               our dedicated medical team.
             </p>
@@ -629,14 +822,14 @@ export default function HomePage() {
               <Link href="/appointments">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                  className="w-full sm:w-auto bg-primary-foreground hover:bg-primary-foreground/90 text-primary btn-coastline"
                 >
                   Book Appointment
                 </Button>
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-secondary/30 bg-transparent px-6 py-3 text-sm font-semibold text-secondary transition-colors hover:bg-secondary/10 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-foreground/30 bg-transparent px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10 w-full sm:w-auto"
               >
                 Contact Us
               </Link>

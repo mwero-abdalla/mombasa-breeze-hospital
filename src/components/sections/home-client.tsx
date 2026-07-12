@@ -18,7 +18,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { stats, testimonials } from "@/lib/data";
 
-const statsIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const statsIconMap: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   Ambulance,
   BedDouble,
   Baby,
@@ -38,7 +41,7 @@ function Counter({
   icon: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [count, setCount] = useState(0);
 
   const num = Number(value);
@@ -68,7 +71,7 @@ function Counter({
 
 export function CounterSection() {
   return (
-    <section className="section-rhythm bg-surface-muted">
+    <section className="py-16 md:py-24 bg-muted/50">
       <div className="container-rhythm">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-8">
           {stats.map((stat) => (
@@ -85,7 +88,7 @@ export function TestimonialsCarousel() {
   const t = testimonials[active];
 
   return (
-    <section className="section-rhythm">
+    <section className="py-16 md:py-24">
       <div className="container-rhythm">
         <div className="mx-auto max-w-4xl px-4">
           <div className="text-center mb-12">
@@ -118,8 +121,12 @@ export function TestimonialsCarousel() {
                         &ldquo;{t.content}&rdquo;
                       </blockquote>
                       <div className="text-center">
-                        <p className="font-semibold text-foreground">{t.name}</p>
-                        <p className="text-sm text-muted-foreground">{t.role}</p>
+                        <p className="font-semibold text-foreground">
+                          {t.name}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {t.role}
+                        </p>
                       </div>
                     </Card>
                   </div>

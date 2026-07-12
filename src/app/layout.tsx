@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "Mvita Hospital",
     "Healthcare in Mombasa",
     "SHA Approved Hospital",
-    "Ronald Ngala Road Hospital",
     "Mombasa Breeze Hospital",
   ],
   openGraph: {
@@ -61,8 +60,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cormorant.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

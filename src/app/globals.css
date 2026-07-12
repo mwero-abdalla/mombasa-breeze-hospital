@@ -1,132 +1,112 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+@theme {
+  /* Colors - HSL values for proper dark mode */
+  --color-background: 0 0% 100%;
+  --color-foreground: 215 28% 17%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 215 28% 17%;
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 215 28% 17%;
+  --color-primary: 210 85% 15%;
+  --color-primary-foreground: 0 0% 98%;
+  --color-secondary: 168 45% 28%;
+  --color-secondary-foreground: 0 0% 98%;
+  --color-muted: 210 20% 96%;
+  --color-muted-foreground: 215 14% 45%;
+  --color-accent: 210 20% 96%;
+  --color-accent-foreground: 215 28% 17%;
+  --color-destructive: 15 75% 52%;
+  --color-destructive-foreground: 0 0% 98%;
+  --color-border: 214 20% 88%;
+  --color-input: 214 20% 88%;
+  --color-ring: 210 85% 15%;
+  --color-chart-1: 210 85% 15%;
+  --color-chart-2: 168 45% 28%;
+  --color-chart-3: 210 85% 45%;
+  --color-chart-4: 42 85% 55%;
+  --color-chart-5: 95 45% 55%;
 
-/* Fonts loaded via next/font in layout.tsx */
+  /* Custom hospital colors */
+  --color-deep-ocean: 210 85% 15%;
+  --color-deep-ocean-light: 210 85% 85%;
+  --color-warm-sand: 35 65% 65%;
+  --color-coral-pulse: 15 75% 52%;
+  --color-sage-reef: 168 45% 28%;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-coral-pulse: var(--coral-pulse);
-  --color-coral-pulse-foreground: var(--coral-pulse-foreground);
-  --color-sage-reef: var(--sage-reef);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-deep-ocean: var(--deep-ocean);
-  --color-warm-sand: var(--warm-sand);
-  --color-coral-pulse: var(--coral-pulse);
-  --color-sage-reef: var(--sage-reef);
-  --color-surface: var(--surface);
-  --color-surface-muted: var(--surface-muted);
-  --color-text-primary: var(--text-primary);
-  --color-text-muted: var(--text-muted);
+  /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius: 0.625rem;
+
+  /* Fonts */
   --font-display: var(--font-cormorant);
   --font-body: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains-mono);
 }
 
-:root {
-  --radius: 0.625rem;
-  --background: #FEFEFE;
-  --foreground: #1A1A2E;
-  --card: #FFFFFF;
-  --card-foreground: #1A1A2E;
-  --popover: #FFFFFF;
-  --popover-foreground: #1A1A2E;
-  --primary: #0A1628;
-  --primary-foreground: #FEFEFE;
-  --secondary: #5A7D6E;
-  --secondary-foreground: #FEFEFE;
-  --muted: #F5F3F0;
-  --muted-foreground: #6B7280;
-  --accent: #F5F3F0;
-  --accent-foreground: #1A1A2E;
-  --destructive: #E05A47;
-  --destructive-foreground: #FEFEFE;
-  --coral-pulse: #E05A47;
-  --coral-pulse-foreground: #FEFEFE;
-  --border: #E5E2DC;
-  --input: #E5E2DC;
-  --ring: #0A1628;
-  --deep-ocean: #0A1628;
-  --warm-sand: #D4A574;
-  --coral-pulse: #E05A47;
-  --sage-reef: #5A7D6E;
-  --surface: #FEFEFE;
-  --surface-muted: #F5F3F0;
-  --text-primary: #1A1A2E;
-  --text-muted: #6B7280;
-}
-
 .dark {
-  --background: #0A1628;
-  --foreground: #FEFEFE;
-  --card: #111A2E;
-  --card-foreground: #FEFEFE;
-  --popover: #111A2E;
-  --popover-foreground: #FEFEFE;
-  --primary: #D4A574;
-  --primary-foreground: #0A1628;
-  --secondary: #7BA892;
-  --secondary-foreground: #0A1628;
-  --muted: #16213E;
-  --muted-foreground: #9CA3AF;
-  --accent: #16213E;
-  --accent-foreground: #FEFEFE;
-  --destructive: #F07A6A;
-  --destructive-foreground: #FEFEFE;
-  --coral-pulse: #F07A6A;
-  --coral-pulse-foreground: #FEFEFE;
-  --border: #1E2A4A;
-  --input: #1E2A4A;
-  --ring: #D4A574;
-  --deep-ocean: #0A1628;
-  --warm-sand: #D4A574;
-  --coral-pulse: #F07A6A;
-  --sage-reef: #7BA892;
-  --surface: #0A1628;
-  --surface-muted: #111A2E;
-  --text-primary: #FEFEFE;
-  --text-muted: #9CA3AF;
+  --color-background: 215 28% 17%;
+  --color-foreground: 0 0% 98%;
+  --color-card: 215 28% 12%;
+  --color-card-foreground: 0 0% 98%;
+  --color-popover: 215 28% 12%;
+  --color-popover-foreground: 0 0% 98%;
+  --color-primary: 35 65% 65%;
+  --color-primary-foreground: 215 28% 17%;
+  --color-secondary: 168 45% 35%;
+  --color-secondary-foreground: 0 0% 98%;
+  --color-muted: 215 28% 22%;
+  --color-muted-foreground: 215 14% 60%;
+  --color-accent: 215 28% 22%;
+  --color-accent-foreground: 0 0% 98%;
+  --color-destructive: 15 75% 60%;
+  --color-destructive-foreground: 0 0% 98%;
+  --color-border: 215 28% 28%;
+  --color-input: 215 28% 28%;
+  --color-ring: 35 65% 65%;
+  --color-chart-1: 35 65% 65%;
+  --color-chart-2: 168 45% 35%;
+  --color-chart-3: 210 85% 55%;
+  --color-chart-4: 42 85% 60%;
+  --color-chart-5: 95 45% 60%;
 }
 
 @layer base {
   * {
-    border-color: var(--border);
-    outline-color: var(--ring);
-    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
   html {
     scroll-behavior: smooth;
   }
-  body {
-    @apply bg-background text-foreground font-body antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-semibold tracking-tight;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
   ::selection {
-    background-color: color-mix(in srgb, var(--warm-sand) 30%, transparent);
-    color: var(--deep-ocean);
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary));
+  }
+  :focus-visible {
+    outline: none;
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 
@@ -134,52 +114,90 @@
   .text-balance {
     text-wrap: balance;
   }
-  .coastline-divider {
-    @apply w-full h-2 overflow-visible;
+  .container-rhythm {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
-  .coastline-divider svg {
-    @apply w-full h-full;
+  @media (min-width: 640px) {
+    .container-rhythm {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
-  .card-flat {
-    background-color: var(--card);
-    border: 1px solid var(--border);
-  }
-  .card-raised {
-    background-color: var(--card);
-    border: 1px solid var(--border);
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.05);
-  }
-  .card-floating {
-    background-color: var(--card);
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  @media (min-width: 1024px) {
+    .container-rhythm {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
   .section-rhythm {
-    @apply py-24 md:py-32;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
-  .container-rhythm {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  @media (min-width: 640px) {
+    .section-rhythm {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .section-rhythm {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+      animation-duration: 0.01ms;
+      animation-iteration-count: 1;
+      transition-duration: 0.01ms;
+      scroll-behavior: auto;
     }
   }
 }
 
 @keyframes coastline-draw {
-  from { stroke-dashoffset: 1000; }
-  to { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes pulse-coral {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.65; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-coastline-draw {
@@ -187,4 +205,10 @@
 }
 .animate-pulse-coral {
   animation: pulse-coral 2.5s ease-in-out infinite;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
 }

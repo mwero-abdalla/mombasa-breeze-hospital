@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Menu, Phone, X } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Menu, Phone } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -29,6 +29,11 @@ const navItemVariants = {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  const backgroundOpacity = useTransform(scrollY, [0, 100], [0, 0.95]);
+  const backdropBlur = useTransform(scrollY, [0, 100], [0, 8]);
+  const borderOpacity = useTransform(scrollY, [0, 100], [0, 0.5]);
+  const boxShadow = useTransform(scrollY, [0, 100], [0, 4]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,26 +46,26 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <motion.div
+      <motion.header
         className={cn(
           "border-b transition-[border-color,background-color,box-shadow] duration-300",
-          scrolled
-            ? "border-border/50 bg-background/95 backdrop-blur-sm shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-            : "border-transparent bg-transparent shadow-none",
+          "bg-background/95 backdrop-blur-sm border-border/50 shadow-sm",
         )}
-        animate={{
-          backgroundColor: scrolled
-            ? "rgba(254,254,254,0.98)"
-            : "transparent",
-          boxShadow: scrolled
-            ? "0 1px 3px 0 rgb(0 0 0 / 0.05)"
-            : "0 0 0 0 transparent",
+        style={{
+          backgroundColor: backgroundOpacity,
+          backdropFilter: `blur(${backdropBlur}px)`,
+          borderColor: `hsl(var(--border) / ${borderOpacity})`,
+          boxShadow: `0 1px ${boxShadow}px 0 rgb(0 0 0 / 0.05)`,
         }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex shrink-0 items-center gap-2.5">
-            <span className="flex size-9 items-center justify-center rounded-xl bg-deep-ocean text-sm font-bold tracking-wide text-deep-ocean-foreground shadow-sm shadow-deep-ocean/20">
+          {/* Left: Monogram + Name */}
+          <Link
+            href="/"
+            className="flex shrink-0 items-center gap-2.5"
+            aria-label="Mombasa Breeze Hospital Home"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground text-sm font-bold tracking-wide shadow-sm shadow-primary/20">
               MB
             </span>
             <div className="flex flex-col leading-tight">
@@ -73,7 +78,12 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <nav className="mx-auto hidden items-center gap-1 lg:flex">
+          {/* Center: Desktop Navigation */}
+          <nav
+            className="mx-auto hidden items-center gap-1 lg:flex"
+            role="navigation"
+            aria-label="Main navigation"
+          >
             {navigation.map((link, i) => (
               <motion.div
                 key={link.href}
@@ -84,7 +94,10 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-primary"
+                  className={cn(
+                    "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors",
+                    "hover:text-primary hover:bg-primary/5",
+                  )}
                 >
                   {link.label}
                 </Link>
@@ -92,21 +105,29 @@ export default function Navbar() {
             ))}
           </nav>
 
+          {/* Right: Emergency Pill + CTA + Mobile Menu */}
           <div className="flex items-center gap-3">
+            {/* Emergency Pill - Desktop */}
             <motion.a
               href={`tel:${siteConfig.phone.emergency.replace(/\s/g, "")}`}
-              className="hidden items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary/10 lg:inline-flex"
-              animate={{ opacity: [1, 0.75, 1] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
+              className={cn(
+                "hidden items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary/10 lg:inline-flex",
+              )}
+              animate={{
+                opacity: [1, 0.7, 1],
+                transition: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut" as const,
+                },
               }}
+              aria-label={`Call emergency: ${siteConfig.phone.emergency}`}
             >
-              <Phone className="size-3" />
+              <Phone className="size-3" aria-hidden="true" />
               <span>{siteConfig.phone.emergency}</span>
             </motion.a>
 
+            {/* Book Appointment CTA - Desktop */}
             <Link
               href="/appointments"
               className={cn(
@@ -117,6 +138,7 @@ export default function Navbar() {
               Book Appointment
             </Link>
 
+            {/* Mobile Menu Trigger */}
             <Sheet>
               <SheetTrigger>
                 <button
@@ -126,13 +148,14 @@ export default function Navbar() {
                   )}
                   aria-label="Open menu"
                 >
-                  <Menu className="size-5" />
+                  <Menu className="size-5" aria-hidden="true" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-72">
+              <SheetContent side="right" className="w-72 p-0">
                 <div className="flex flex-col gap-6 p-4">
+                  {/* Mobile Logo */}
                   <Link href="/" className="flex items-center gap-2.5">
-                    <span className="flex size-9 items-center justify-center rounded-xl bg-deep-ocean text-sm font-bold tracking-wide text-deep-ocean-foreground shadow-sm shadow-deep-ocean/20">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground text-sm font-bold tracking-wide shadow-sm shadow-primary/20">
                       MB
                     </span>
                     <div className="flex flex-col leading-tight">
@@ -145,15 +168,22 @@ export default function Navbar() {
                     </div>
                   </Link>
 
+                  {/* Mobile Emergency Pill */}
                   <a
                     href={`tel:${siteConfig.phone.emergency.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-medium text-primary"
+                    className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary/10 transition-colors"
+                    aria-label={`Call emergency: ${siteConfig.phone.emergency}`}
                   >
-                    <Phone className="size-4" />
+                    <Phone className="size-3.5" aria-hidden="true" />
                     {siteConfig.phone.emergency}
                   </a>
 
-                  <nav className="flex flex-col gap-1">
+                  {/* Mobile Navigation */}
+                  <nav
+                    className="flex flex-col gap-1"
+                    role="navigation"
+                    aria-label="Mobile navigation"
+                  >
                     {navigation.map((link) => (
                       <SheetClose key={link.href}>
                         <Link
@@ -166,6 +196,7 @@ export default function Navbar() {
                     ))}
                   </nav>
 
+                  {/* Mobile Book Appointment CTA */}
                   <SheetClose>
                     <Link
                       href="/appointments"
@@ -182,7 +213,7 @@ export default function Navbar() {
             </Sheet>
           </div>
         </div>
-      </motion.div>
+      </motion.header>
     </header>
   );
 }

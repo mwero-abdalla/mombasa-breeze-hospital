@@ -1,8 +1,8 @@
-import type { LucideIcon } from "lucide-react";
 import {
   Ambulance,
-  ArrowRight,
   Baby,
+  ChevronRight,
+  ChevronRight as ChevronRightIcon,
   CircleCheck,
   HeartPulse,
   Microscope,
@@ -14,16 +14,20 @@ import {
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { CoastlinePulse } from "@/components/ui/coastline-pulse";
 import { services, siteConfig } from "@/lib/data";
 
-const iconMap: Record<string, LucideIcon> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Stethoscope,
   Ambulance,
   HeartPulse,
-  Child: Baby,
+  Baby,
   Microscope,
   Pill,
   Scan,
+  Syringe,
+  Child: Baby,
   Scalpel: Syringe,
 };
 
@@ -93,37 +97,75 @@ const serviceEquipment: Record<string, string[]> = {
   ],
 };
 
+const quickNavIcons: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  Stethoscope,
+  Ambulance,
+  HeartPulse,
+  Baby,
+  Microscope,
+  Pill,
+  Scan,
+  Syringe,
+  Child: Baby,
+  Scalpel: Syringe,
+};
+
+const quickNavIconsMap: Record<string, string> = {
+  "General Consultation": "Stethoscope",
+  "Emergency Medicine": "Ambulance",
+  "Maternity Services": "HeartPulse",
+  Pediatrics: "Child",
+  "Laboratory Services": "Microscope",
+  "Pharmacy Services": "Pill",
+  "Radiology & Imaging": "Scan",
+  "Minor Surgery": "Scalpel",
+};
+
+const gradientBgClasses = [
+  "from-blue-500 via-blue-600 to-teal-600",
+  "from-emerald-500 via-teal-600 to-cyan-600",
+  "from-rose-500 via-pink-500 to-red-500",
+  "from-amber-500 via-orange-500 to-red-500",
+  "from-violet-500 via-purple-600 to-indigo-600",
+  "from-cyan-500 via-sky-500 to-blue-500",
+  "from-indigo-500 via-purple-500 to-pink-500",
+  "from-teal-500 via-emerald-500 to-green-500",
+];
+
+const gradientBgClassesLight = [
+  "from-blue-50 via-blue-100 to-teal-50",
+  "from-emerald-50 via-teal-50 to-cyan-50",
+  "from-rose-50 via-pink-50 to-red-50",
+  "from-amber-50 via-orange-50 to-red-50",
+  "from-violet-50 via-purple-50 to-indigo-50",
+  "from-cyan-50 via-sky-50 to-blue-50",
+  "from-indigo-50 via-purple-50 to-pink-50",
+  "from-teal-50 via-emerald-50 to-green-50",
+];
+
 export default function ServicesPage() {
   return (
     <>
       {/* ── Hero ── */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 text-white overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[
-            { size: 300, x: "8%", y: "5%" },
-            { size: 220, x: "78%", y: "10%" },
-            { size: 150, x: "70%", y: "70%" },
-            { size: 200, x: "15%", y: "80%" },
-            { size: 130, x: "85%", y: "45%" },
-          ].map((s, i) => (
-            <div
-              key={s.size + s.x}
-              className="absolute rounded-full bg-white/[0.04] animate-float"
-              style={{
-                width: s.size,
-                height: s.size,
-                left: s.x,
-                top: s.y,
-                animationDelay: `${i * 0.7}s`,
-                animationDuration: `${4.5 + i * 0.6}s`,
-              }}
-            />
-          ))}
+          <CoastlinePulse
+            className="absolute bottom-0 left-0 right-0 h-8 w-full"
+            color="white"
+            strokeWidth={1.5}
+            style={{ opacity: 0.15 }}
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-from)_0%,transparent_70%)] from-white/5 via-transparent to-transparent" />
         </div>
-        <div className="absolute inset-0 bg-black/10" />
         <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36">
           <div className="max-w-2xl">
-            <Badge variant="secondary" className="mb-4">
+            <Badge
+              variant="secondary"
+              className="mb-4 border-white/20 text-white/90 bg-white/10"
+            >
               {services.length} SPECIALIZED DEPARTMENTS
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-balance">
@@ -133,34 +175,97 @@ export default function ServicesPage() {
               Comprehensive healthcare services tailored to your needs —
               delivered with compassion and expertise under one roof.
             </p>
+            <CoastlinePulse
+              className="w-full max-w-xs h-4"
+              color="white"
+              strokeWidth={2}
+              style={{ opacity: 0.4 }}
+            />
           </div>
         </div>
-        <div className="wave-divider absolute bottom-0 left-0 right-0 h-6" />
       </section>
 
-      {/* ── Service Categories ── */}
+      {/* ── Quick Nav ── */}
+      <section className="py-16 bg-white border-b border-border/50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <Badge variant="secondary" className="mb-4">
+              QUICK NAVIGATION
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              Jump to a Service
+            </h2>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {services.map((service) => {
+              const Icon =
+                quickNavIcons[quickNavIconsMap[service.title]] || Stethoscope;
+              const slug = service.title.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <Link
+                  key={service.title}
+                  href={`/services/${slug}`}
+                  className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white border border-border/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-sm font-medium"
+                >
+                  <Icon className="h-4 w-4 text-primary group-hover:scale-110 transition-transform duration-200" />
+                  {service.title}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Service Sections ── */}
       {services.map((service, index) => {
         const Icon = iconMap[service.icon] || Stethoscope;
         const equipment = serviceEquipment[service.title] || [];
+        const bgClass = index % 2 === 0 ? "bg-white" : "bg-muted/50";
+        const gradientBg = gradientBgClasses[index % gradientBgClasses.length];
+        const gradientBgLight =
+          gradientBgClassesLight[index % gradientBgClassesLight.length];
+        const isEven = index % 2 === 0;
+
         return (
           <section
             key={service.title}
-            className={`py-20 md:py-28 ${index % 2 === 0 ? "" : "bg-muted/50"}`}
+            id={service.title.toLowerCase().replace(/\s+/g, "-")}
+            className={`py-20 md:py-28 ${bgClass}`}
           >
             <div className="max-w-6xl mx-auto px-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <div className={index % 2 !== 0 ? "lg:order-last" : ""}>
-                  <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 rounded-2xl p-10 md:p-12 text-white text-center shadow-xl shadow-primary/15">
-                    <div className="w-20 h-20 mx-auto mb-5 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center">
-                      {Icon && <Icon className="h-10 w-10" />}
+              <div
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
+                  !isEven ? "lg:grid-flow-dense" : ""
+                }`}
+              >
+                {/* Image/Icon Side */}
+                <div className={!isEven ? "lg:order-2" : ""} aria-hidden="true">
+                  <div className="relative aspect-square max-w-md mx-auto">
+                    <div
+                      className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${gradientBg} opacity-20 blur-2xl`}
+                    />
+                    <div
+                      className={`relative rounded-3xl bg-gradient-to-br ${gradientBgLight} p-1`}
+                    >
+                      <div className="relative rounded-2xl bg-background p-8 md:p-12 flex items-center justify-center h-full min-h-[300px]">
+                        <div className="text-center">
+                          <div
+                            className={`inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${gradientBg} mb-6`}
+                          >
+                            <Icon className="h-12 w-12 md:h-16 md:w-16 text-white" />
+                          </div>
+                          <h3 className="text-2xl md:text-3xl font-bold">
+                            {service.title}
+                          </h3>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-bold">
-                      {service.title}
-                    </h3>
                   </div>
                 </div>
-                <div>
-                  <p className="text-muted-foreground leading-relaxed mb-8">
+
+                {/* Content Side */}
+                <div className={isEven ? "lg:order-2" : ""}>
+                  <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
                     {service.description}
                   </p>
 
@@ -175,7 +280,7 @@ export default function ServicesPage() {
                           key={benefit.text}
                           className="flex items-start gap-2.5 text-sm"
                         >
-                          <CircleCheck className="h-5 w-5 text-teal-600 shrink-0 mt-0.5" />
+                          <CircleCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                           <span className="text-muted-foreground">
                             {benefit.text}
                           </span>
@@ -192,7 +297,11 @@ export default function ServicesPage() {
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {equipment.map((item) => (
-                          <Badge key={item} variant="secondary">
+                          <Badge
+                            key={item}
+                            variant="secondary"
+                            className="gap-1.5"
+                          >
                             {item}
                           </Badge>
                         ))}
@@ -203,9 +312,10 @@ export default function ServicesPage() {
                   <Link href="/appointments">
                     <Button
                       size="lg"
-                      className="bg-primary text-white hover:bg-primary/90 cursor-pointer font-semibold"
+                      className="bg-primary text-white hover:bg-primary/90 cursor-pointer font-semibold gap-2"
                     >
                       {service.cta}
+                      <ChevronRightIcon className="h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
@@ -215,58 +325,16 @@ export default function ServicesPage() {
         );
       })}
 
-      {/* ── Quick Nav ── */}
-      <section className="py-16 bg-gradient-to-b from-white to-muted/30">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <Badge variant="secondary" className="mb-4">
-              QUICK NAVIGATION
-            </Badge>
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              Jump to a Service
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {services.map((service) => {
-              const Icon = iconMap[service.icon] || Stethoscope;
-              return (
-                <Link
-                  key={service.title}
-                  href={`/services/${service.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white border border-border/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-sm font-medium"
-                >
-                  {Icon && (
-                    <Icon className="h-4 w-4 text-primary group-hover:scale-110 transition-transform duration-200" />
-                  )}
-                  {service.title}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ── Bottom CTA ── */}
       <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 text-white relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[
-            { size: 260, x: "5%", y: "10%" },
-            { size: 180, x: "82%", y: "65%" },
-            { size: 140, x: "50%", y: "90%" },
-          ].map((s, i) => (
-            <div
-              key={s.size + s.x}
-              className="absolute rounded-full bg-white/[0.04] animate-float"
-              style={{
-                width: s.size,
-                height: s.size,
-                left: s.x,
-                top: s.y,
-                animationDelay: `${i * 0.6}s`,
-                animationDuration: `${4 + i * 0.8}s`,
-              }}
-            />
-          ))}
+          <CoastlinePulse
+            className="absolute bottom-0 left-0 right-0 h-8 w-full"
+            color="white"
+            strokeWidth={1.5}
+            style={{ opacity: 0.15 }}
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-from)_0%,transparent_70%)] from-white/5 via-transparent to-transparent" />
         </div>
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           <Badge
@@ -285,10 +353,10 @@ export default function ServicesPage() {
           <Link href="/appointments">
             <Button
               size="lg"
-              className="bg-white text-primary hover:bg-blue-50 cursor-pointer font-semibold shadow-lg shadow-black/10"
+              className="bg-white text-primary hover:bg-blue-50 cursor-pointer font-semibold shadow-lg shadow-black/10 gap-2"
             >
               Book Appointment
-              <ArrowRight className="ml-1.5 h-4 w-4" />
+              <ChevronRightIcon className="h-4 w-4" />
             </Button>
           </Link>
         </div>

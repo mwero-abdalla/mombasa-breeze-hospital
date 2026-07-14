@@ -10,7 +10,7 @@ const pub = join(root, "public", "images");
 function write(rel, svg) {
   const p = join(pub, rel);
   mkdirSync(dirname(p), { recursive: true });
-  writeFileSync(p, svg.trim() + "\n", "utf8");
+  writeFileSync(p, `${svg.trim()}\n`, "utf8");
 }
 
 // ── Theme gradient pairs (hsl from globals.css) ──────────────────────────────
@@ -26,7 +26,6 @@ const pairs = [
 ];
 
 const SAND = "hsl(42 35% 95%)";
-const CHARCOAL = "hsl(189 36% 10%)";
 const WHITE = "#ffffff";
 
 // ── Icon path library (lucide-derived, 24x24) ───────────────────────────────
@@ -51,10 +50,7 @@ const ICONS = {
     "M7 9v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h2",
     "M17 9v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h2",
   ],
-  shield: [
-    "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-    "M9 12l2 2 4-4",
-  ],
+  shield: ["M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", "M9 12l2 2 4-4"],
   droplet: ["M12 2.5S5 10 5 14a7 7 0 0 0 14 0c0-4-7-11.5-7-11.5Z"],
   activity: ["M3 12h4l3 8 4-16 3 8h4"],
   ambulance: [
@@ -81,9 +77,7 @@ function iconGroup(icon, cx, cy, size, color = WHITE, sw = 1.5) {
   const scale = size / 24;
   const tx = cx - 12 * scale;
   const ty = cy - 12 * scale;
-  const paths = ICONS[icon]
-    .map((d) => `<path d="${d}" />`)
-    .join("");
+  const paths = ICONS[icon].map((d) => `<path d="${d}" />`).join("");
   return `<g transform="translate(${tx} ${ty}) scale(${scale})" fill="none" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${paths}</g>`;
 }
 
@@ -160,51 +154,9 @@ function blogSVG(post, idx, icon) {
 }
 
 // ── Hero / coastline scene ───────────────────────────────────────────────────
-function sceneSVG(rel, w, h, variant) {
+function sceneSVG(w, h) {
   const id = "scene";
-  return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Mombasa Breeze Hospital coastline scene">
-  <defs>
-    <linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="hsl(176 54% 30%)"/>
-      <stop offset="0.55" stop-color="hsl(206 55% 42%)"/>
-      <stop offset="1" stop-color="hsl(206 46% 68%)"/>
-    </linearGradient>
-    <linearGradient id="${id}sea" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="hsl(176 45% 42%)"/>
-      <stop offset="1" stop-color="hsl(206 55% 42%)"/>
-    </linearGradient>
-    <radialGradient id="${id}sun" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="hsl(42 90% 85%)"/>
-      <stop offset="1" stop-color="hsl(42 90% 85% / 0)"/>
-    </radialGradient>
-  </defs>
-  <rect width="${w}" height="${h}" fill="url(#${id}sky)"/>
-  <circle cx="${w * 0.78}" cy="${h * 0.26}" r="${h * 0.28}" fill="url(#${id}sun)"/>
-  <circle cx="${w * 0.78}" cy="${h * 0.26}" r="${h * 0.07}" fill="hsl(42 90% 88%)" opacity="0.9"/>
-  <rect y="${h * 0.62}" width="${w}" height="${h * 0.38}" fill="url(#${id}sea)" opacity="0.55"/>
-  <g opacity="0.25" stroke="${WHITE}" stroke-width="3" fill="none">
-    <path d="M0 ${h * 0.66} Q ${w * 0.25} ${h * 0.62} ${w * 0.5} ${h * 0.66} T ${w} ${h * 0.66}"/>
-    <path d="M0 ${h * 0.74} Q ${w * 0.25} ${h * 0.7} ${w * 0.5} ${h * 0.74} T ${w} ${h * 0.74}"/>
-  </g>
-  <g transform="translate(${w * 0.32} ${h * 0.34})" fill="${WHITE}" opacity="0.96">
-    <rect x="0" y="40" width="170" height="150" rx="10"/>
-    <rect x="24" y="70" width="30" height="30" rx="3"/>
-    <rect x="70" y="70" width="30" height="30" rx="3"/>
-    <rect x="116" y="70" width="30" height="30" rx="3"/>
-    <rect x="24" y="120" width="30" height="30" rx="3"/>
-    <rect x="70" y="120" width="30" height="30" rx="3"/>
-    <rect x="116" y="120" width="30" height="30" rx="3"/>
-    <rect x="74" y="-2" width="22" height="44" rx="4"/>
-    <path d="M85 -22 v40 M66 -2 h38" stroke="hsl(14 78% 52%)" stroke-width="9" stroke-linecap="round"/>
-  </g>
-  <g transform="translate(${w * 0.7} ${h * 0.5})" opacity="0.95">
-    <rect x="0" y="60" width="14" height="90" rx="6" fill="hsl(42 35% 88%)"/>
-    <path d="M7 60 C -30 30 -10 -20 30 -10 C 60 -30 95 10 60 50 C 70 70 40 80 7 60 Z" fill="hsl(42 45% 82%)"/>
-  </g>
-  <path d="M0 ${h} L0 ${h * 0.9} Q ${w * 0.25} ${h * 0.82} ${w * 0.5} ${h * 0.9} T ${w} ${h * 0.9} L ${w} ${h} Z" fill="${SAND}"/>
-  <path d="M0 ${h} L0 ${h * 0.95} Q ${w * 0.25} ${h * 0.9} ${w * 0.5} ${h * 0.95} T ${w} ${h * 0.95} L ${w} ${h} Z" fill="hsl(41 30% 78%)"/>
-</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Mombasa Breeze Hospital coastline scene"><defs><linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(176 54% 30%)"/><stop offset="0.55" stop-color="hsl(206 55% 42%)"/><stop offset="1" stop-color="hsl(206 46% 68%)"/></linearGradient><linearGradient id="${id}sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(176 45% 42%)"/><stop offset="1" stop-color="hsl(206 55% 42%)"/></linearGradient><radialGradient id="${id}sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="hsl(42 90% 85%)"/><stop offset="1" stop-color="hsl(42 90% 85% / 0)"/></radialGradient></defs><rect width="${w}" height="${h}" fill="url(#${id}sky)"/><circle cx="${w * 0.78}" cy="${h * 0.26}" r="${h * 0.28}" fill="url(#${id}sun)"/><circle cx="${w * 0.78}" cy="${h * 0.26}" r="${h * 0.07}" fill="hsl(42 90% 88%)" opacity="0.9"/><rect y="${h * 0.62}" width="${w}" height="${h * 0.38}" fill="url(#${id}sea)" opacity="0.55"/><g opacity="0.25" stroke="${WHITE}" stroke-width="3" fill="none"><path d="M0 ${h * 0.66} Q ${w * 0.25} ${h * 0.62} ${w * 0.5} ${h * 0.66} T ${w} ${h * 0.66}"/><path d="M0 ${h * 0.74} Q ${w * 0.25} ${h * 0.7} ${w * 0.5} ${h * 0.74} T ${w} ${h * 0.74}"/></g><g transform="translate(${w * 0.32} ${h * 0.34})" fill="${WHITE}" opacity="0.96"><rect x="0" y="40" width="170" height="150" rx="10"/><rect x="24" y="70" width="30" height="30" rx="3"/><rect x="70" y="70" width="30" height="30" rx="3"/><rect x="116" y="70" width="30" height="30" rx="3"/><rect x="24" y="120" width="30" height="30" rx="3"/><rect x="70" y="120" width="30" height="30" rx="3"/><rect x="116" y="120" width="30" height="30" rx="3"/><rect x="74" y="-2" width="22" height="44" rx="4"/><path d="M85 -22 v40 M66 -2 h38" stroke="hsl(14 78% 52%)" stroke-width="9" stroke-linecap="round"/></g><g transform="translate(${w * 0.7} ${h * 0.5})" opacity="0.95"><rect x="0" y="60" width="14" height="90" rx="6" fill="hsl(42 35% 88%)"/><path d="M7 60 C -30 30 -10 -20 30 -10 C 60 -30 95 10 60 50 C 70 70 40 80 7 60 Z" fill="hsl(42 45% 82%)"/></g><path d="M0 ${h} L0 ${h * 0.9} Q ${w * 0.25} ${h * 0.82} ${w * 0.5} ${h * 0.9} T ${w} ${h * 0.9} L ${w} ${h} Z" fill="${SAND}"/><path d="M0 ${h} L0 ${h * 0.95} Q ${w * 0.25} ${h * 0.9} ${w * 0.5} ${h * 0.95} T ${w} ${h * 0.95} L ${w} ${h} Z" fill="hsl(41 30% 78%)"/></svg>`;
 }
 
 // ── Build ────────────────────────────────────────────────────────────────────
@@ -218,7 +170,9 @@ const doctors = [
   { name: "Dr. Esther Nyambura", specialty: "Laboratory Medicine" },
   { name: "Dr. Rashid Mwinyi", specialty: "Pharmacy" },
 ];
-doctors.forEach((d, i) => write(`doctors/doctor-${i + 1}.svg`, doctorSVG(d, i)));
+for (let i = 0; i < doctors.length; i++) {
+  write(`doctors/doctor-${i + 1}.svg`, doctorSVG(doctors[i], i));
+}
 
 const blogs = [
   { category: "Health Policy", icon: "shield" },
@@ -242,9 +196,9 @@ const blogFiles = [
   "emergency-room",
   "health-checkups",
 ];
-blogs.forEach((b, i) =>
-  write(`blog/${blogFiles[i]}.svg`, blogSVG(b, i, b.icon)),
-);
+for (let i = 0; i < blogs.length; i++) {
+  write(`blog/${blogFiles[i]}.svg`, blogSVG(blogs[i], i, blogs[i].icon));
+}
 
 write("hero-coastline.svg", sceneSVG("hero", 1600, 1000, "hero"));
 write("about-scene.svg", sceneSVG("about", 1200, 800, "about"));

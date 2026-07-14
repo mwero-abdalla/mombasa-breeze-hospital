@@ -60,9 +60,9 @@ const initialState: FormData = {
   reason: "",
 };
 
-const iconClasses = "h-4 w-4 shrink-0 text-ocean";
+const iconClasses = "h-4 w-4 shrink-0 text-primary";
 const selectClass =
-  "h-9 w-full min-w-0 rounded-lg border border-input bg-transparent px-3 py-1.5 text-sm transition-colors outline-none focus-visible:border-ocean focus-visible:ring-3 focus-visible:ring-ocean/20 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:bg-input/30 dark:disabled:bg-input/80 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2364748B%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.22%208.22a.75.75%200%200%201%201.06%200L10%2011.94l3.72-3.72a.75.75%200%201%201%201.06%201.06l-4.25%204.25a.75.75%200%200%201-1.06%200L5.22%209.28a.75.75%200%200%201%200-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat pr-8";
+  "h-9 w-full min-w-0 rounded-lg border border-input bg-transparent px-3 py-1.5 text-sm transition-colors outline-none focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/20 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:bg-input/30 dark:disabled:bg-input/80 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2364748B%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.22%208.22a.75.75%200%200%201%201.06%200L10%2011.94l3.72-3.72a.75.75%200%201%201%201.06%201.06l-4.25%204.25a.75.75%200%200%201-1.06%200L5.22%209.28a.75.75%200%200%201%200-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat pr-8";
 
 const fieldErrorClass = "text-xs text-destructive mt-1 flex items-center gap-1";
 
@@ -177,7 +177,7 @@ export default function AppointmentsPage() {
 
   return (
     <>
-      <section className="relative bg-gradient-to-br from-ocean via-ocean to-teal text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary via-primary to-accent text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDMiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-50" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
         <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36 text-center">
@@ -187,7 +187,7 @@ export default function AppointmentsPage() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             Book an Appointment
           </h1>
-          <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Schedule your visit with ease. We&apos;ll confirm your appointment
             promptly.
           </p>
@@ -209,7 +209,7 @@ export default function AppointmentsPage() {
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <Card className="text-center py-12 border-t-4 border-t-teal overflow-hidden">
+                <Card className="text-center py-12 border-t-4 border-t-accent overflow-hidden">
                   <CardHeader>
                     <motion.div
                       className="flex justify-center mb-4"
@@ -222,8 +222,8 @@ export default function AppointmentsPage() {
                         damping: 15,
                       }}
                     >
-                      <div className="rounded-full bg-teal-light p-4">
-                        <CheckCircle className="h-14 w-14 text-teal" />
+                      <div className="rounded-full bg-accent/15 p-4">
+                        <CheckCircle className="h-14 w-14 text-accent" />
                       </div>
                     </motion.div>
                     <motion.div
@@ -247,7 +247,7 @@ export default function AppointmentsPage() {
                       We will contact you to confirm your visit.
                     </motion.p>
                     <motion.div
-                      className="bg-ocean-light/50 rounded-xl p-5 text-left space-y-3 text-sm border border-ocean/10"
+                      className="bg-primary/10 rounded-xl p-5 text-left space-y-3 text-sm border border-primary/10"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5 }}
@@ -311,10 +311,10 @@ export default function AppointmentsPage() {
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                <Card className="border-t-4 border-t-ocean overflow-hidden">
+                <Card className="border-t-4 border-t-primary overflow-hidden">
                   <CardHeader className="pb-2">
                     <CardTitle className="text-xl flex items-center gap-2">
-                      <Calendar className="h-5 w-5 text-ocean" />
+                      <Calendar className="h-5 w-5 text-primary" />
                       Book an Appointment
                     </CardTitle>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -569,7 +569,7 @@ export default function AppointmentsPage() {
                         <Button
                           type="submit"
                           size="lg"
-                          className="w-full cursor-pointer bg-ocean hover:bg-ocean/90"
+                          className="w-full cursor-pointer bg-primary hover:bg-primary-hover"
                         >
                           <Calendar className="h-4 w-4" />
                           Book Appointment

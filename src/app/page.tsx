@@ -358,8 +358,8 @@ export default function HomePage() {
       <section className="page-surface relative overflow-hidden bg-background">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--secondary)/0.14),transparent_30%),radial-gradient(circle_at_top_right,hsl(var(--primary)/0.12),transparent_28%)]" />
         <div
-          className="absolute inset-x-0 top-10 mx-auto h-64 w-[min(90vw,56rem)] rounded-full bg-primary/10 blur-3xl"
           aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[url('/images/hero-coastline.svg')] bg-cover bg-center opacity-[0.1]"
         />
 
         {/* Coastline animated draw — the signature element */}

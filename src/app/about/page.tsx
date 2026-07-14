@@ -148,6 +148,10 @@ export default function AboutPage() {
     <>
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-primary">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[url('/images/about-scene.svg')] bg-cover bg-center opacity-20"
+        />
         <div className="absolute inset-0 opacity-5">
           <svg
             className="w-full h-full"

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 560" role="img" aria-label="Dr. Fatima Hussein, Radiology">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(206 46% 68%)"/>
+      <stop offset="1" stop-color="hsl(14 78% 65%)"/>
+    </linearGradient>
+    <radialGradient id="g4r" cx="0.3" cy="0.25" r="0.9">
+      <stop offset="0" stop-color="rgba(255,255,255,0.35)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="560" fill="url(#g4)"/>
+  <rect width="480" height="560" fill="url(#g4r)"/>
+  <g opacity="0.12" fill="#ffffff">
+    <circle cx="80" cy="90" r="60"/>
+    <circle cx="420" cy="470" r="90"/>
+  </g>
+  <circle cx="240" cy="215" r="150" fill="#ffffff" opacity="0.14"/>
+  <circle cx="240" cy="215" r="138" fill="#ffffff"/>
+  <g>
+    <circle cx="240" cy="195" r="56" fill="hsl(42 35% 95%)"/>
+    <path d="M148 360 C148 286 194 246 240 246 C286 246 332 286 332 360 Z" fill="hsl(42 35% 95%)"/>
+    <path d="M240 252 L214 304 L266 304 Z" fill="hsl(206 46% 68%)"/>
+    <path d="M208 300 C208 344 272 344 272 300" fill="none" stroke="hsl(14 78% 52%)" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="240" cy="300" r="9" fill="hsl(14 78% 52%)"/>
+  </g>
+  <g transform="translate(338 150)" fill="hsl(206 46% 68%)">
+    <rect x="-2" y="0" width="28" height="28" rx="8"/>
+    <path d="M12 -7 v22 M1 4 h22" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="240" y="465" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="34" font-weight="600" fill="#ffffff">FH</text>
+  <text x="240" y="495" text-anchor="middle" font-family="Manrope, system-ui, sans-serif" font-size="15" letter-spacing="1.5" fill="#ffffff" opacity="0.85">RADIOLOGY</text>
+</svg>

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Calendar, Filter, Search, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -22,29 +23,6 @@ const dataCategories = blogPosts.map((p) => p.category);
 const merged = [...new Set([...explicitCategories, ...dataCategories])];
 const allCategories = ["All", ...merged.sort()];
 
-const categoryGradients: Record<string, string> = {
-  "Women's Health": "from-pink-400 to-rose-500",
-  "Child Health": "from-green-400 to-emerald-500",
-  Diabetes: "from-blue-400 to-indigo-500",
-  Hypertension: "from-red-400 to-orange-500",
-  Nutrition: "from-yellow-400 to-orange-400",
-  "Mental Health": "from-purple-400 to-violet-500",
-  "Heart Health": "from-rose-400 to-red-500",
-  "Health Policy": "from-sky-400 to-blue-500",
-  Wellness: "from-teal-400 to-cyan-500",
-  "Emergency Care": "from-orange-400 to-red-500",
-  "Preventive Care": "from-emerald-400 to-green-500",
-};
-
-function getPlaceholderGradient(category: string) {
-  for (const [key, gradient] of Object.entries(categoryGradients)) {
-    if (category.includes(key) || key.includes(category)) {
-      return gradient;
-    }
-  }
-  return "from-teal-400 to-cyan-500";
-}
-
 export default function BlogPage() {
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -60,19 +38,19 @@ export default function BlogPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-gradient-to-br from-teal-600 via-teal-700 to-blue-800 text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary via-primary to-accent text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36 text-center">
           <Badge
             variant="secondary"
-            className="mb-4 border-teal-300/40 text-teal-100 text-xs tracking-wider uppercase"
+            className="mb-4 border-primary-foreground/30 text-primary-foreground/80 text-xs tracking-wider uppercase"
           >
             Health Blog
           </Badge>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             Health Blog &amp; Resources
           </h1>
-          <p className="text-lg md:text-xl text-teal-100 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
             Expert health advice, tips, and resources from our medical team to
             help you live a healthier life.
           </p>
@@ -151,11 +129,16 @@ export default function BlogPage() {
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                   >
                     <Card className="card-hover overflow-hidden h-full flex flex-col border border-border/60">
-                      <div
-                        className={`relative flex items-center justify-center h-48 bg-gradient-to-br ${getPlaceholderGradient(post.category)}`}
-                      >
-                        <Calendar className="h-10 w-10 text-white/20" />
-                        <span className="absolute bottom-3 right-3 text-white/40 text-xs font-mono">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                        <span className="absolute bottom-3 right-3 text-white/90 text-xs font-mono">
                           {new Date(post.date).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",

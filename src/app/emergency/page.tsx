@@ -206,10 +206,10 @@ export default function EmergencyPage() {
             </Card>
 
             <Card className="card-hover border border-border/60 overflow-hidden">
-              <div className="h-1.5 bg-gradient-to-r from-teal-500 to-teal-600" />
+              <div className="h-1.5 bg-gradient-to-r from-accent to-swahili-door-blue" />
               <CardContent className="p-7">
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-teal/10 text-teal shrink-0">
+                  <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent shrink-0">
                     <MapPin className="h-5.5 w-5.5" />
                   </div>
                   <div>

@@ -346,7 +346,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBChB (UoN)", "MMed Internal Medicine (UoN)"],
     experience: 15,
     languages: ["English", "Swahili", "Kikuyu"],
-    image: "/images/doctors/doctor-1.jpg",
+    image: "/images/doctors/doctor-1.svg",
   },
   {
     name: "Dr. Ahmed Salim",
@@ -354,7 +354,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBChB (KU)", "MMed Emergency Medicine (AKU)"],
     experience: 12,
     languages: ["English", "Swahili", "Arabic"],
-    image: "/images/doctors/doctor-2.jpg",
+    image: "/images/doctors/doctor-2.svg",
   },
   {
     name: "Dr. Mary Akinyi",
@@ -362,7 +362,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBChB (UoN)", "MMed Obstetrics & Gynecology (UoN)"],
     experience: 18,
     languages: ["English", "Swahili", "Luo"],
-    image: "/images/doctors/doctor-3.jpg",
+    image: "/images/doctors/doctor-3.svg",
   },
   {
     name: "Dr. Patrick Otieno",
@@ -370,7 +370,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBChB (Moi)", "MMed Pediatrics (Moi)"],
     experience: 10,
     languages: ["English", "Swahili", "Luo"],
-    image: "/images/doctors/doctor-4.jpg",
+    image: "/images/doctors/doctor-4.svg",
   },
   {
     name: "Dr. Fatima Hussein",
@@ -378,7 +378,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBChB (UoN)", "MMed Radiology (UoN)"],
     experience: 14,
     languages: ["English", "Swahili", "Somali"],
-    image: "/images/doctors/doctor-5.jpg",
+    image: "/images/doctors/doctor-5.svg",
   },
   {
     name: "Dr. Samuel Kiprop",
@@ -386,7 +386,7 @@ export const doctors: Doctor[] = [
     qualifications: ["MBChB (UoN)", "MMed General Surgery (UoN)"],
     experience: 16,
     languages: ["English", "Swahili", "Kalenjin"],
-    image: "/images/doctors/doctor-6.jpg",
+    image: "/images/doctors/doctor-6.svg",
   },
   {
     name: "Dr. Esther Nyambura",
@@ -397,7 +397,7 @@ export const doctors: Doctor[] = [
     ],
     experience: 11,
     languages: ["English", "Swahili", "Kikuyu"],
-    image: "/images/doctors/doctor-7.jpg",
+    image: "/images/doctors/doctor-7.svg",
   },
   {
     name: "Dr. Rashid Mwinyi",
@@ -405,7 +405,7 @@ export const doctors: Doctor[] = [
     qualifications: ["BPharm (KU)", "MPharm Clinical Pharmacy (UoN)"],
     experience: 9,
     languages: ["English", "Swahili", "Arabic"],
-    image: "/images/doctors/doctor-8.jpg",
+    image: "/images/doctors/doctor-8.svg",
   },
 ];
 
@@ -511,7 +511,7 @@ export const blogPosts: BlogPost[] = [
       "Learn about Kenya's Social Health Authority and how it improves access to quality healthcare for all citizens at Mombasa Breeze Hospital.",
     author: "Dr. Catherine Wanjiku",
     date: "2025-12-15",
-    image: "/images/blog/sha-healthcare.jpg",
+    image: "/images/blog/sha-healthcare.svg",
   },
   {
     title: "Managing Diabetes: Tips for a Healthy Lifestyle",
@@ -520,7 +520,7 @@ export const blogPosts: BlogPost[] = [
       "Practical advice on managing diabetes through diet, exercise, and regular checkups. Our specialists share insights on living well with diabetes.",
     author: "Dr. Ahmed Salim",
     date: "2025-11-28",
-    image: "/images/blog/diabetes-care.jpg",
+    image: "/images/blog/diabetes-care.svg",
   },
   {
     title: "Preparing for Childbirth: A Guide for Expectant Mothers",
@@ -529,7 +529,7 @@ export const blogPosts: BlogPost[] = [
       "Everything you need to know about preparing for delivery, from what to pack to understanding the stages of labor. Expert advice from our maternity team.",
     author: "Dr. Mary Akinyi",
     date: "2025-11-10",
-    image: "/images/blog/childbirth-guide.jpg",
+    image: "/images/blog/childbirth-guide.svg",
   },
   {
     title: "Childhood Immunizations: What Parents Need to Know",
@@ -538,7 +538,7 @@ export const blogPosts: BlogPost[] = [
       "A comprehensive guide to the recommended immunization schedule for children in Kenya and why vaccines are crucial for your child's health.",
     author: "Dr. Patrick Otieno",
     date: "2025-10-22",
-    image: "/images/blog/immunizations.jpg",
+    image: "/images/blog/immunizations.svg",
   },
   {
     title: "Understanding Hypertension: The Silent Killer",
@@ -547,7 +547,7 @@ export const blogPosts: BlogPost[] = [
       "High blood pressure often has no symptoms but can lead to serious complications. Learn about prevention, monitoring, and treatment options.",
     author: "Dr. Catherine Wanjiku",
     date: "2025-10-05",
-    image: "/images/blog/hypertension.jpg",
+    image: "/images/blog/hypertension.svg",
   },
   {
     title: "Nutrition Tips for a Strong Immune System",
@@ -556,7 +556,7 @@ export const blogPosts: BlogPost[] = [
       "Discover the foods and nutrients that can help boost your immune system and keep you healthy throughout the year.",
     author: "Dr. Esther Nyambura",
     date: "2025-09-18",
-    image: "/images/blog/immune-nutrition.jpg",
+    image: "/images/blog/immune-nutrition.svg",
   },
   {
     title: "Mental Health Matters: Breaking the Stigma",
@@ -565,7 +565,7 @@ export const blogPosts: BlogPost[] = [
       "Mental health is an essential part of overall well-being. Read about common mental health conditions and where to seek help in Mombasa.",
     author: "Dr. Samuel Kiprop",
     date: "2025-09-01",
-    image: "/images/blog/mental-health.jpg",
+    image: "/images/blog/mental-health.svg",
   },
   {
     title: "When to Visit the Emergency Room",
@@ -574,7 +574,7 @@ export const blogPosts: BlogPost[] = [
       "Knowing when to seek emergency care can save lives. Our emergency medicine team outlines the signs and symptoms that warrant a trip to the ER.",
     author: "Dr. Ahmed Salim",
     date: "2025-08-15",
-    image: "/images/blog/emergency-room.jpg",
+    image: "/images/blog/emergency-room.svg",
   },
   {
     title: "The Importance of Regular Health Checkups",
@@ -583,7 +583,7 @@ export const blogPosts: BlogPost[] = [
       "Regular health screenings can detect problems early when they are easiest to treat. Find out which checkups you need based on your age and risk factors.",
     author: "Dr. Catherine Wanjiku",
     date: "2025-07-30",
-    image: "/images/blog/health-checkups.jpg",
+    image: "/images/blog/health-checkups.svg",
   },
 ];
 

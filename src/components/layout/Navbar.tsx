@@ -124,17 +124,14 @@ export default function Navbar() {
             </Link>
 
             <Sheet>
-              <SheetTrigger>
-                <button
-                  type="button"
-                  className={cn(
-                    "lg:hidden inline-flex size-9 items-center justify-center rounded-full border border-border/60 bg-background/80 transition-colors hover:bg-muted",
-                    scrolled && "bg-background shadow-sm",
-                  )}
-                  aria-label="Open menu"
-                >
-                  <Menu className="size-5" aria-hidden="true" />
-                </button>
+              <SheetTrigger
+                className={cn(
+                  "lg:hidden inline-flex size-9 items-center justify-center rounded-full border border-border/60 bg-background/80 transition-colors hover:bg-muted",
+                  scrolled && "bg-background shadow-sm",
+                )}
+                aria-label="Open menu"
+              >
+                <Menu className="size-5" aria-hidden="true" />
               </SheetTrigger>
               <SheetContent
                 side="right"

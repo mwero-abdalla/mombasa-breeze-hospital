@@ -1,335 +1,377 @@
-import type { LucideIcon } from "lucide-react";
 import {
   Ambulance,
-  BedDouble,
+  Baby,
+  ChevronRight,
   CircleCheck,
   HeartPulse,
   Microscope,
   Pill,
-  Shield,
+  Scan,
   Stethoscope,
+  Syringe,
 } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CoastlinePulse } from "@/components/ui/coastline-pulse";
 import { services, siteConfig } from "@/lib/data";
 
-interface ServiceCategory {
-  icon: string;
-  title: string;
-  description: string;
-  benefits: string[];
-  equipmentTreatments: string[];
-}
-
-const categories: ServiceCategory[] = [
-  {
-    icon: "Ambulance",
-    title: "Emergency Services",
-    description:
-      "Our 24/7 emergency department is fully equipped to handle all medical emergencies with a dedicated rapid response team. From accidents and injuries to acute medical conditions, we provide immediate, life-saving care around the clock.",
-    benefits: [
-      "Round-the-clock availability, 365 days a year",
-      "Ambulance services for emergency transport",
-      "Critical care monitoring and resuscitation",
-      "Immediate medication administration",
-    ],
-    equipmentTreatments: [
-      "Defibrillators",
-      "Ventilators",
-      "ECG Machines",
-      "Patient Monitors",
-      "Infusion Pumps",
-      "Trauma Care",
-      "Cardiac Emergencies",
-      "Stroke Management",
-      "Poisoning Cases",
-      "Accident & Injury Care",
-    ],
-  },
-  {
-    icon: "Stethoscope",
-    title: "General Medicine",
-    description:
-      "Comprehensive medical care for patients of all ages. Our experienced physicians provide thorough assessments, diagnosis, and treatment plans for a wide range of medical conditions, from routine checkups to complex chronic disease management.",
-    benefits: [
-      "Consultations with experienced physicians",
-      "Routine health checkups and screenings",
-      "Chronic disease management",
-      "Referral coordination with specialists",
-    ],
-    equipmentTreatments: [
-      "Diagnostic Tools",
-      "ECG Machines",
-      "Spirometers",
-      "Blood Pressure Monitors",
-      "Glucometers",
-      "Hypertension Management",
-      "Diabetes Care",
-      "Respiratory Infection Treatment",
-      "Gastrointestinal Care",
-      "Allergy Management",
-    ],
-  },
-  {
-    icon: "HeartPulse",
-    title: "Maternity & Child Health",
-    description:
-      "Complete care for mothers and children from pregnancy through adolescence. Our maternity wing offers a safe, comfortable environment for childbirth, while our pediatric team provides expert care for infants, children, and teenagers.",
-    benefits: [
-      "Antenatal and postnatal care programs",
-      "Safe delivery with skilled birth attendants",
-      "Private maternity suites for new mothers",
-      "Pediatric consultations and immunizations",
-    ],
-    equipmentTreatments: [
-      "Fetal Monitors",
-      "Incubators",
-      "Ultrasound Scanners",
-      "Vaccination Equipment",
-      "Phototherapy Units",
-      "Normal & C-Section Delivery",
-      "Newborn Care & Screening",
-      "Child Development Assessments",
-      "Nutrition Counseling",
-      "Adolescent Health Services",
-    ],
-  },
-  {
-    icon: "Microscope",
-    title: "Diagnostics & Laboratory",
-    description:
-      "Fully equipped diagnostic laboratory and imaging department offering a wide range of tests and scans with quick turnaround times. Our team of skilled technologists ensures accurate results for effective treatment planning.",
-    benefits: [
-      "Same-day results for most laboratory tests",
-      "Digital X-ray and ultrasound imaging",
-      "Quality assured procedures and protocols",
-      "Comprehensive health screening packages",
-    ],
-    equipmentTreatments: [
-      "Hematology Analyzer",
-      "Biochemistry Analyzer",
-      "Digital X-Ray System",
-      "Ultrasound Scanner",
-      "Microbiology & Pathology Equipment",
-      "Blood & Urine Analysis",
-      "Lipid & Hormone Profiles",
-      "Cancer Screening Tests",
-      "Liver & Kidney Function Tests",
-      "Infectious Disease Testing",
-    ],
-  },
-  {
-    icon: "Pill",
-    title: "Pharmacy Services",
-    description:
-      "Our on-site pharmacy provides prescribed medications, over-the-counter drugs, and health supplies. We maintain a comprehensive stock of quality-assured medicines at affordable prices, with professional pharmacists available for consultation.",
-    benefits: [
-      "24/7 pharmacy service for inpatients and outpatients",
-      "Wide range of medications in stock",
-      "Quality-assured pharmaceuticals from trusted suppliers",
-      "Professional medication counseling",
-    ],
-    equipmentTreatments: [
-      "Modern Storage Systems",
-      "Temperature-Controlled Units",
-      "Inventory Management Software",
-      "Prescription Medications",
-      "Over-the-Counter Drugs",
-      "Chronic Disease Medications",
-      "Health & Wellness Supplies",
-      "Medical Consumables",
-    ],
-  },
-  {
-    icon: "BedDouble",
-    title: "Outpatient & Inpatient Services",
-    description:
-      "Flexible care options designed for your convenience. Our outpatient services allow you to receive quality care without an overnight stay, while our inpatient wing provides comfortable private and shared wards for patients requiring extended medical attention.",
-    benefits: [
-      "Walk-in consultations during operating hours",
-      "Comfortable private and shared wards",
-      "Day surgery and observation services",
-      "24/7 nursing care and support",
-    ],
-    equipmentTreatments: [
-      "Private Wards",
-      "Shared Wards",
-      "Day Care Suites",
-      "Patient Monitoring Systems",
-      "Nurse Call Systems",
-      "Outpatient Consultations",
-      "Minor Surgical Procedures",
-      "Post-Surgical Care & Recovery",
-      "Medical Ward Admissions",
-      "Physiotherapy & Rehabilitation",
-    ],
-  },
-  {
-    icon: "Shield",
-    title: "Preventive Care",
-    description:
-      "Proactive healthcare services designed to prevent illness and detect health issues early. Our preventive care programs help you stay healthy through regular screenings, vaccinations, and personalized wellness guidance.",
-    benefits: [
-      "Regular health screenings and checkups",
-      "Immunization programs for all ages",
-      "Health education and lifestyle counseling",
-      "Early detection of chronic conditions",
-    ],
-    equipmentTreatments: [
-      "Screening & Diagnostic Tools",
-      "Vaccination Equipment",
-      "Health Assessment Kits",
-      "Wellness Checkups",
-      "Cancer Screenings",
-      "Cardiovascular Risk Assessment",
-      "Adult & Child Immunizations",
-      "Nutrition & Fitness Counseling",
-    ],
-  },
-];
-
-const iconMap: Record<string, LucideIcon> = {
-  Ambulance,
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Stethoscope,
+  Ambulance,
   HeartPulse,
+  Baby,
   Microscope,
   Pill,
-  BedDouble,
-  Shield,
+  Scan,
+  Syringe,
+  Child: Baby,
+  Scalpel: Syringe,
+};
+
+const serviceEquipment: Record<string, string[]> = {
+  "General Consultation": [
+    "ECG",
+    "Stethoscope",
+    "Blood Pressure Monitor",
+    "Glucometer",
+    "Thermometer",
+    "Spirometer",
+  ],
+  "Emergency Medicine": [
+    "Defibrillator",
+    "Ventilator",
+    "ECG Machine",
+    "Patient Monitor",
+    "Infusion Pump",
+    "Trauma Kit",
+  ],
+  "Maternity Services": [
+    "Fetal Monitor",
+    "Ultrasound",
+    "Incubator",
+    "Phototherapy Unit",
+    "Delivery Set",
+    "Resuscitation Kit",
+  ],
+  Pediatrics: [
+    "Pediatric Stethoscope",
+    "Nebulizer",
+    "Growth Chart",
+    "Thermometer",
+    "Vaccination Kit",
+    "Pulse Oximeter",
+  ],
+  "Laboratory Services": [
+    "Hematology Analyzer",
+    "Biochemistry Analyzer",
+    "Microscope",
+    "Centrifuge",
+    "Culture Incubator",
+    "Coagulation Analyzer",
+  ],
+  "Pharmacy Services": [
+    "Temperature-Controlled Storage",
+    "Dispensing System",
+    "IV Preparation Unit",
+    "Automated Inventory",
+    "Compounding Equipment",
+  ],
+  "Radiology & Imaging": [
+    "Digital X-Ray",
+    "Ultrasound Scanner",
+    "CT Scanner",
+    "MRI Scanner",
+    "Mammography Unit",
+    "Fluoroscopy System",
+  ],
+  "Minor Surgery": [
+    "Surgical Instruments",
+    "Sterilization Unit",
+    "Operating Table",
+    "Anesthesia Machine",
+    "Surgical Lights",
+    "Suction Apparatus",
+  ],
+};
+
+const quickNavIconsMap: Record<string, string> = {
+  "General Consultation": "Stethoscope",
+  "Emergency Medicine": "Ambulance",
+  "Maternity Services": "HeartPulse",
+  Pediatrics: "Child",
+  "Laboratory Services": "Microscope",
+  "Pharmacy Services": "Pill",
+  "Radiology & Imaging": "Scan",
+  "Minor Surgery": "Scalpel",
+};
+
+const quickNavIcons: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  Stethoscope,
+  Ambulance,
+  HeartPulse,
+  Baby,
+  Microscope,
+  Pill,
+  Scan,
+  Syringe,
+  Child: Baby,
+  Scalpel: Syringe,
 };
 
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 text-white">
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36">
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden bg-primary">
+        <div className="absolute inset-0 opacity-5">
+          <CoastlinePulse
+            className="absolute bottom-0 left-0 right-0 h-8 w-full"
+            color="hsl(var(--color-primary-foreground))"
+            strokeWidth={1.5}
+          />
+        </div>
+        <div className="relative container-rhythm py-24 md:py-36">
           <div className="max-w-2xl">
-            <Badge variant="secondary" className="mb-4">
-              {services.length} Specialized Departments
-            </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <span
+              className="badge-earmark badge-earmark--secondary mb-4 inline-block"
+              style={{
+                borderColor: "hsl(var(--color-primary-foreground) / 0.3)",
+                backgroundColor: "hsl(var(--color-primary-foreground) / 0.1)",
+                color: "hsl(var(--color-primary-foreground))",
+              }}
+            >
+              {services.length} SPECIALIZED DEPARTMENTS
+            </span>
+            <h1 className="text-display text-primary-foreground mb-6 text-balance">
               Our Services
             </h1>
-            <p className="text-lg md:text-xl text-blue-100 mb-8">
-              Comprehensive healthcare services tailored to your needs
+            <p className="text-body text-primary-foreground/80 mb-8 max-w-xl">
+              Comprehensive healthcare services tailored to your needs —
+              delivered with compassion and expertise under one roof.
             </p>
+            <CoastlinePulse
+              className="w-full max-w-xs h-4"
+              color="hsl(var(--color-primary-foreground))"
+              strokeWidth={2}
+              style={{ opacity: 0.4 }}
+            />
           </div>
+        </div>
+        {/* Coastline divider */}
+        <div className="container-rhythm coastline-divider" aria-hidden="true">
+          <svg
+            viewBox="0 0 1200 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className="coastline-path coastline-path--accent"
+              d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+            />
+          </svg>
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
-              Everything You Need Under One Roof
-            </h2>
-            <p className="text-muted-foreground max-w-3xl mx-auto">
-              At {siteConfig.name}, we offer a full spectrum of medical services
-              delivered with compassion and expertise. From emergency care to
-              preventive wellness programs, our dedicated team is here to
-              support you and your family at every stage of life.
-            </p>
+      {/* ── Quick Nav ── */}
+      <section className="py-16 bg-background border-b border-border/50">
+        <div className="container-rhythm">
+          <div className="text-center mb-10">
+            <span className="badge-earmark badge-earmark--muted mb-4 inline-block">
+              QUICK NAVIGATION
+            </span>
+            <h2 className="text-h2 text-foreground mb-2">Jump to a Service</h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
-            {categories.map((cat) => {
-              const Icon = iconMap[cat.icon];
+          <div className="flex flex-wrap justify-center gap-3">
+            {services.map((service) => {
+              const Icon =
+                quickNavIcons[quickNavIconsMap[service.title]] || Stethoscope;
+              const slug = service.title.toLowerCase().replace(/\s+/g, "-");
               return (
                 <Link
-                  key={cat.title}
-                  href={`#${cat.title.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="flex flex-col items-center gap-2 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors text-center"
+                  key={service.title}
+                  href={`/services/${slug}`}
+                  className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-card border border-border/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-sm font-medium"
                 >
-                  {Icon && <Icon className="h-8 w-8 text-primary" />}
-                  <span className="text-xs font-medium leading-tight">
-                    {cat.title}
-                  </span>
+                  <Icon className="h-4 w-4 text-primary group-hover:scale-110 transition-transform duration-200" />
+                  {service.title}
                 </Link>
               );
             })}
           </div>
         </div>
+
+        {/* Coastline divider */}
+        <div className="container-rhythm coastline-divider" aria-hidden="true">
+          <svg
+            viewBox="0 0 1200 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className="coastline-path"
+              d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+            />
+          </svg>
+        </div>
       </section>
 
-      {categories.map((category, index) => {
-        const Icon = iconMap[category.icon];
-        const sectionId = category.title.toLowerCase().replace(/\s+/g, "-");
+      {/* ── Service Sections ── */}
+      {services.map((service, index) => {
+        const Icon = iconMap[service.icon] || Stethoscope;
+        const equipment = serviceEquipment[service.title] || [];
+        const isEven = index % 2 === 0;
+
         return (
           <section
-            key={category.title}
-            id={sectionId}
-            className={`py-16 ${index % 2 === 0 ? "bg-muted/50" : ""}`}
+            key={service.title}
+            id={service.title.toLowerCase().replace(/\s+/g, "-")}
+            className={`section-rhythm ${isEven ? "bg-background" : "bg-muted"}`}
           >
-            <div className="max-w-6xl mx-auto px-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div className={index % 2 !== 0 ? "lg:order-last" : ""}>
-                  <div className="bg-gradient-to-br from-blue-600 to-teal-600 rounded-2xl p-10 text-white text-center">
-                    {Icon && <Icon className="h-20 w-20 mx-auto mb-4" />}
-                    <h3 className="text-2xl font-bold">{category.title}</h3>
+            <div className="container-rhythm">
+              <div
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
+                  !isEven ? "lg:grid-flow-dense" : ""
+                }`}
+              >
+                {/* Image/Icon Side */}
+                <div className={!isEven ? "lg:order-2" : ""} aria-hidden="true">
+                  <div className="relative aspect-square max-w-md mx-auto">
+                    <div className="absolute inset-0 rounded-3xl bg-primary/5 blur-2xl" />
+                    <div className="relative rounded-3xl bg-primary/5 p-1">
+                      <div className="relative rounded-2xl bg-background p-8 md:p-12 flex items-center justify-center h-full min-h-[300px]">
+                        <div className="text-center">
+                          <div className="inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-primary/10 mb-6">
+                            <Icon className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                          </div>
+                          <h3 className="text-h2 text-foreground">
+                            {service.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {category.description}
+
+                {/* Content Side */}
+                <div className={isEven ? "lg:order-2" : ""}>
+                  <p className="text-body text-muted-foreground mb-8 leading-relaxed">
+                    {service.description}
                   </p>
-                  <div className="mb-6">
-                    <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-primary">
+
+                  <div className="mb-8">
+                    <h4 className="font-semibold mb-4 text-xs uppercase tracking-[0.15em] text-primary flex items-center gap-2">
+                      <span className="w-6 h-px bg-primary/30" />
                       Key Benefits
                     </h4>
-                    <ul className="space-y-2">
-                      {category.benefits.map((benefit) => (
-                        <li key={benefit} className="flex items-start gap-2">
-                          <CircleCheck className="h-5 w-5 text-teal-600 shrink-0 mt-0.5" />
-                          <span className="text-sm">{benefit}</span>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {service.benefits.map((benefit) => (
+                        <li
+                          key={benefit.text}
+                          className="flex items-start gap-2.5 text-sm"
+                        >
+                          <CircleCheck className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span className="text-muted-foreground text-body-sm">
+                            {benefit.text}
+                          </span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div className="mb-6">
-                    <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-primary">
-                      Equipment & Treatments
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {category.equipmentTreatments.map((item) => (
-                        <Badge key={item} variant="secondary">
-                          {item}
-                        </Badge>
-                      ))}
+
+                  {equipment.length > 0 && (
+                    <div className="mb-8">
+                      <h4 className="font-semibold mb-4 text-xs uppercase tracking-[0.15em] text-primary flex items-center gap-2">
+                        <span className="w-6 h-px bg-primary/30" />
+                        Equipment & Treatments
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {equipment.map((item) => (
+                          <span
+                            key={item}
+                            className="px-3 py-1.5 text-xs font-medium text-primary/80 bg-primary/5 rounded-lg border border-primary/10"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
+
                   <Link href="/appointments">
                     <Button
                       size="lg"
-                      className="bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+                      variant="default"
+                      className="btn-coastline gap-2"
                     >
-                      Book Appointment
+                      {service.cta}
+                      <ChevronRight className="h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
               </div>
             </div>
+
+            {/* Coastline divider between services */}
+            <div
+              className="container-rhythm coastline-divider"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 1200 60"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  className="coastline-path"
+                  d="M0,30 C150,55 300,5 450,30 C600,55 750,5 900,30 C1050,55 1200,30 1200,30"
+                />
+              </svg>
+            </div>
           </section>
         );
       })}
 
-      <section className="py-16 bg-gradient-to-br from-blue-600 to-teal-700 text-white">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Book an Appointment?
-          </h2>
-          <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-            Schedule your visit today and experience quality healthcare with
-            compassion at {siteConfig.name}.
-          </p>
-          <Link href="/appointments">
-            <Button
-              size="lg"
-              className="bg-white text-blue-700 hover:bg-blue-50 cursor-pointer"
+      {/* ── Bottom CTA ── */}
+      <section className="section-rhythm relative overflow-hidden bg-primary">
+        <div className="absolute inset-0 opacity-5">
+          <CoastlinePulse
+            className="absolute bottom-0 left-0 right-0 h-8 w-full"
+            color="hsl(var(--color-primary-foreground))"
+            strokeWidth={1.5}
+          />
+        </div>
+        <div className="relative container-rhythm text-center">
+          <div className="max-w-3xl mx-auto">
+            <span
+              className="badge-earmark badge-earmark--secondary mb-4 inline-block"
+              style={{
+                borderColor: "hsl(var(--color-primary-foreground) / 0.3)",
+                backgroundColor: "hsl(var(--color-primary-foreground) / 0.1)",
+                color: "hsl(var(--color-primary-foreground))",
+              }}
             >
-              Book Appointment
-            </Button>
-          </Link>
+              BOOK NOW
+            </span>
+            <h2 className="text-h1 text-primary-foreground mb-4">
+              Ready to Book an Appointment?
+            </h2>
+            <p className="text-body text-primary-foreground/80 mb-8 max-w-xl mx-auto">
+              Schedule your visit today and experience quality healthcare with
+              compassion at {siteConfig.name}.
+            </p>
+            <Link href="/appointments">
+              <Button
+                size="lg"
+                className="bg-primary-foreground hover:bg-primary-foreground/90 text-primary cursor-pointer font-semibold btn-coastline gap-2"
+              >
+                Book Appointment
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </>

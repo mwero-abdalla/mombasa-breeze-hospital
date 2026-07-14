@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Calendar, Filter, User } from "lucide-react";
+import { ArrowRight, Calendar, Filter, Search, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -9,8 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { blogPosts } from "@/lib/data";
 
-const categories = [
-  "All",
+const explicitCategories = [
   "Women's Health",
   "Child Health",
   "Diabetes",
@@ -19,23 +19,9 @@ const categories = [
   "Mental Health",
 ];
 
-const categoryGradients: Record<string, string> = {
-  "Women's Health": "from-pink-400 to-rose-500",
-  "Child Health": "from-green-400 to-emerald-500",
-  Diabetes: "from-blue-400 to-indigo-500",
-  Hypertension: "from-red-400 to-orange-500",
-  Nutrition: "from-yellow-400 to-orange-400",
-  "Mental Health": "from-purple-400 to-violet-500",
-};
-
-function getPlaceholderGradient(category: string) {
-  for (const [key, gradient] of Object.entries(categoryGradients)) {
-    if (category.includes(key) || key.includes(category)) {
-      return gradient;
-    }
-  }
-  return "from-teal-400 to-cyan-500";
-}
+const dataCategories = blogPosts.map((p) => p.category);
+const merged = [...new Set([...explicitCategories, ...dataCategories])];
+const allCategories = ["All", ...merged.sort()];
 
 export default function BlogPage() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -51,35 +37,55 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-teal-700 text-white">
+      {/* ── Hero ── */}
+      <section className="relative bg-gradient-to-br from-primary via-primary to-accent text-primary-foreground overflow-hidden">
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-36 text-center">
+          <Badge
+            variant="secondary"
+            className="mb-4 border-primary-foreground/30 text-primary-foreground/80 text-xs tracking-wider uppercase"
+          >
+            Health Blog
+          </Badge>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             Health Blog &amp; Resources
           </h1>
-          <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
-            Expert health advice, tips, and resources from our medical team
+          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
+            Expert health advice, tips, and resources from our medical team to
+            help you live a healthier life.
           </p>
         </div>
       </section>
 
-      <section className="py-16">
+      {/* ── Category Filters ── */}
+      <section className="py-10 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
-            <Filter className="h-4 w-4 text-muted-foreground" />
-            {categories.map((category) => (
+          <div className="flex items-center gap-3 mb-4">
+            <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
+            <span className="text-sm font-medium text-foreground">
+              Filter by Category
+            </span>
+            <Search className="h-3.5 w-3.5 text-muted-foreground ml-auto" />
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin -mx-4 px-4">
+            {allCategories.map((category) => (
               <Button
                 key={category}
                 variant={activeFilter === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveFilter(category)}
-                className="cursor-pointer"
+                className="cursor-pointer shrink-0"
               >
                 {category}
               </Button>
             ))}
           </div>
+        </div>
+      </section>
 
+      {/* ── Blog Grid ── */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeFilter}
@@ -90,9 +96,30 @@ export default function BlogPage() {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {filteredPosts.length === 0 ? (
-                <div className="col-span-full text-center py-16 text-muted-foreground">
-                  No articles found in this category.
-                </div>
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="col-span-full text-center py-20"
+                >
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-muted text-muted-foreground mb-4">
+                    <Search className="h-6 w-6" />
+                  </div>
+                  <p className="text-muted-foreground font-medium">
+                    No articles found in &ldquo;{activeFilter}&rdquo;
+                  </p>
+                  <p className="text-sm text-muted-foreground/70 mt-1">
+                    Try selecting a different category.
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-4 cursor-pointer"
+                    onClick={() => setActiveFilter("All")}
+                  >
+                    View All Articles
+                  </Button>
+                </motion.div>
               ) : (
                 filteredPosts.map((post, index) => (
                   <motion.div
@@ -101,12 +128,21 @@ export default function BlogPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                   >
-                    <Card className="overflow-hidden h-full flex flex-col">
-                      <div
-                        className={`flex items-center justify-center h-48 bg-gradient-to-br ${getPlaceholderGradient(post.category)}`}
-                      >
-                        <span className="text-white/30 text-6xl font-bold italic">
-                          {post.category.charAt(0)}
+                    <Card className="card-hover overflow-hidden h-full flex flex-col border border-border/60">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                        <span className="absolute bottom-3 right-3 text-white/90 text-xs font-mono">
+                          {new Date(post.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          })}
                         </span>
                       </div>
                       <CardContent className="p-5 space-y-3 flex-1 flex flex-col">
@@ -116,16 +152,16 @@ export default function BlogPage() {
                         <h3 className="text-lg font-semibold leading-tight">
                           {post.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground flex-1">
+                        <p className="text-sm text-muted-foreground flex-1 line-clamp-2">
                           {post.excerpt}
                         </p>
                         <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
-                          <span className="flex items-center gap-1">
-                            <User className="h-3.5 w-3.5" />
+                          <span className="flex items-center gap-1.5">
+                            <User className="h-3.5 w-3.5 shrink-0" />
                             {post.author}
                           </span>
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3.5 w-3.5" />
+                          <span className="flex items-center gap-1.5">
+                            <Calendar className="h-3.5 w-3.5 shrink-0" />
                             {new Date(post.date).toLocaleDateString("en-US", {
                               year: "numeric",
                               month: "short",

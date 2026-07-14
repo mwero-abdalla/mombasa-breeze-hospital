@@ -127,7 +127,7 @@ export function TestimonialsCarousel() {
                       <div className="flex justify-center gap-1 mb-6">
                         {Array.from({ length: t.rating }).map((_, i) => (
                           <Star
-                            key={`star-${i}`}
+                            key={`star-${t.name}-${i}`}
                             className="h-5 w-5 fill-secondary text-secondary"
                           />
                         ))}
@@ -160,15 +160,17 @@ export function TestimonialsCarousel() {
                 <ChevronLeft className="h-4 w-4" />
               </Button>
               <div className="flex flex-wrap items-center justify-center gap-2">
-                {testimonials.map((_, i) => (
+                {testimonials.map((t) => (
                   <button
-                    key={`dot-${i}`}
+                    key={`dot-${t.name}`}
                     type="button"
                     className={`h-2 w-2 rounded-full transition-colors ${
-                      i === active ? "bg-primary" : "bg-muted-foreground/30"
+                      t.name === testimonials[active].name
+                        ? "bg-primary"
+                        : "bg-muted-foreground/30"
                     }`}
-                    onClick={() => setActive(i)}
-                    aria-label={`Go to testimonial ${i + 1}`}
+                    onClick={() => setActive(testimonials.indexOf(t))}
+                    aria-label={`Go to testimonial by ${t.name}`}
                   />
                 ))}
               </div>
